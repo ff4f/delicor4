@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id='stock_warehouse_view_dosi_tree' model='ir.ui.view'>
+            <field name="name">stock.warehouse.tree.dosi</field>
+            <field name="model">stock.warehouse</field>
+            <field name="arch" type="xml">
+                <tree string="Asignar Dosificación a Sucursal" editable="bottom">
+                    <field name="name" string="Sucursal"/>
+                    <field name="code" string="Código"/>
+                    <field name="dosificacion"/>
+                    <field name="dosificacion_dc"/>
+                    <field name="is_begin"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id='stock_warehouse_view_dosi_form' model='ir.ui.view'>
+            <field name="name">stock.warehouse.form.dosi</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse" />
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="dosificacion"/>
+                    <field name="dosificacion_dc"/>
+                    <field name="is_begin"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id='stock_warehouse_sucursal_action' model='ir.actions.act_window'>
+            <field name="name">Sucursales</field>
+            <field name="res_model">stock.warehouse</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="stock_warehouse_view_dosi_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Puede actualizar los certificados por sucursal
+              </p><p>
+                Imporante una vez emitido una factura con un certificado
+                solo puede cambiar de certificado cuando inactiva un certificado de dosificación
+              </p>
+            </field>
+        </record>
+        <menuitem action="stock_warehouse_sucursal_action" parent="account.menu_finance_receivables" id="stock_warehouse_sucursal_menu"/>
+    </data>
+</odoo>

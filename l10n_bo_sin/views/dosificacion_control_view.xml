@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="dosificacion_control_form" model="ir.ui.view">
+            <field name="name">dosificacion.control.form</field>
+            <field name="model">dosificacion.control</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Certificado de activación de dosificación">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name"/></h1>
+                        <group>
+                            <group name="main_grp" colspan="2">
+                                <group name="main_grp_col1" string="Datos Iniciales">
+                                    <field name="date_init"/>
+                                    <field name="date_end"/>
+                                    <field name="n_autorizacion"/>
+                                    <field name="sucursal_id" readonly="0" force_save="1"/>
+                                    <field name="type" widget="radio"/>
+                                    <field name="type_inv" widget="radio"/>
+                                </group>
+                                <group name="main_grp_col2" string="Control de Numeración">
+                                    <field name="n_factura_inicial"/>
+                                    <field name="n_factura_actual" readonly="1" force_save="1"/>
+                                    <field name="n_factura_final"/>
+                                </group>
+                            </group>
+                            <group name="origin_grp" string="Parametros Adicionales">
+                                <field name="company_id"/>
+                                <field name="llave"/>
+                                <field name="actividad"/>
+                                <field name="leyenda"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id='dosificacion_control_view_tree' model='ir.ui.view'>
+            <field name="name">dosificacion.control.tree</field>
+            <field name="model">dosificacion.control</field>
+            <field name="arch" type="xml">
+                <tree string="Certificado de activación de dosificación">
+                    <field name="name"/>
+                    <field name="date_end"/>
+                    <field name="sucursal_id"/>
+                    <field name="n_autorizacion"/>
+                    <field name="n_factura_actual"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id='dosificacion_control_action' model='ir.actions.act_window'>
+            <field name="name">Certificado Activación</field>
+            <field name="res_model">dosificacion.control</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="dosificacion_control_view_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click en Añadir Nueva Certicado de Activación
+                </p>
+                <p>
+                    Los certicados de activación son solicitados a traves de la Oficina Virtual
+                    Recuerde Registrar un Certicado por cada actividad económica por la cual
+                    esta generando la facturación computarizada
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_dosificacion_control_tree_all">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dosificacion_control_view_tree"/>
+            <field name="act_window_id" ref="dosificacion_control_action"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_dosificacion_control_form_all">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dosificacion_control_form"/>
+            <field name="act_window_id" ref="dosificacion_control_action"/>
+        </record>
+
+        <menuitem action="dosificacion_control_action" parent="codigo_control" id="dosificacion_control_menu"/>
+    </data>
+</odoo>

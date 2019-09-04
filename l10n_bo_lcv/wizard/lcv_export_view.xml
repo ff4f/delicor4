@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="wizard_lcv_export" model="ir.ui.view">
+            <field name="name">Libro de Ventas</field>
+            <field name="model">lcv.export.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Libro de Compras y Ventas">
+                    <field name="type" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="name" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <group states="choose" string="Parametros LCV">
+                        <label for="year" string="Año"/>
+                        <div><field name="year" class="oe_inline"/> Periodo: <field name="period" class="oe_inline"/></div>
+                        <field name="warehouse_id" attrs="{'invisible': [('type','!=','ventas')]}"/>
+                        <field name="format"/>
+                    </group>
+                    <div states="get">
+                        <h2>Exportación Completa</h2>
+                        <p>Haga clic en el siguiente enlace: <field name="data" readonly="1" filename="name"/></p>
+                    </div>
+                    <footer states="choose">
+                        <button name="act_getfile" string="Exportar" type="object" class="btn-primary"/>
+                        <button special="cancel" string="Cancelar" type="object" class="btn-default"/>
+                    </footer>
+                    <footer states="get">
+                        <button special="cancel" string="Cerrar" type="object" class="btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_lcv_ventas" model="ir.actions.act_window">
+            <field name="name">Libro de Ventas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lcv.export.wizard</field>
+            <field name="context">{'default_type': 'ventas'}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="action_wizard_lcv_compras" model="ir.actions.act_window">
+            <field name="name">Libro de Compras</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lcv.export.wizard</field>
+            <field name="context">{'default_type': 'compras'}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <!--<record id="action_wizard_lcv_b_ventas" model="ir.actions.act_window">
+            <field name="name">Bancarización Ventas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lcv.export.wizard</field>
+            <field name="context">{'default_type': 'b_ventas'}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="action_wizard_lcv_b_compras" model="ir.actions.act_window">
+            <field name="name">Bancarización Compras</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lcv.export.wizard</field>
+            <field name="context">{'default_type': 'b_compras'}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        -->
+        <menuitem action="action_wizard_lcv_ventas" id="menu_wizard_lcv_ventas" parent="menu_impuestos_nacionales"/>
+        <menuitem action="action_wizard_lcv_compras" id="menu_wizard_lcv_compras" parent="menu_impuestos_nacionales"/>
+        <!--<menuitem action="action_wizard_lcv_b_ventas" id="menu_wizard_lcv_b_ventas" parent="menu_impuestos_nacionales"/>
+        <menuitem action="action_wizard_lcv_b_compras" id="menu_wizard_lcv_b_compras" parent="menu_impuestos_nacionales"/>-->
+
+    </data>
+</odoo>
