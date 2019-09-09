@@ -112,7 +112,7 @@
                     </div>
                     <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
 
-                    <table class="table table-condensed" style="font-size: 15px;">
+                    <table class="table table-condensed" style="font-size: 15px; margin-left:-5px;">
                         <tbody class="invoice_tbody">
                             <tr style="line-height: 14px;">
                                 <td class="text-right">CANT.</td>
@@ -120,13 +120,13 @@
                                 <td class="text-right">P. UNIT.</td>
                                 <td class="text-right">SUBTOTAL</td>
                             </tr>
-                            <tr t-foreach="o.invoice_line_ids" t-as="l" style="line-height: 13px; margin-left:-5px;">
+                            <tr t-foreach="o.invoice_line_ids" t-as="l" style="line-height: 12px;">
                                 <td class="text-center">
                                     <t t-esc="'{0:,.2f}'.format(l.quantity)"/>
                                     <span t-field="l.uom_id" groups="product.group_uom"/>
                                 </td>
                                 <td>
-                                    <span t-field="l.display_name"/>
+                                    <span t-field="l.product_id.name"/>
                                 </td>
                                 <td class="text-right">
                                     <t t-esc="'{0:,.2f}'.format(l.price_unit)"/>
@@ -154,7 +154,7 @@
                                     <span t-esc="o.amount_text"/>
                                 </td>
                             </tr>
-                            <t t-if="o.amount_total != o.amount_open">
+                            <t t-if="o.amount_imp != o.amount_total">
                                 <tr style="line-height: 14px; font-size:10px;">
                                     <td colspan="4">
                                         <strong>Importe base para Crédito Fiscal, Ley N° 317 Bs.</strong>

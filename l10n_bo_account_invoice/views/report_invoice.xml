@@ -175,7 +175,7 @@
                                     <t t-esc="'{0:,.2f}'.format(o.amount_open)"/>
                                 </td>
                             </tr>
-                            <t t-if="o.amount_total != o.amount_open">
+                            <t t-if="o.amount_imp != o.amount_total">
                                 <tr>
                                     <td colspan="3">
                                         <strong>Importe base para Crédito Fiscal, Ley° 317</strong>
@@ -394,7 +394,7 @@
                                         <t t-esc="'{0:,.2f}'.format(o.amount_open)"/>
                                     </td>
                                 </tr>
-                                <t t-if="o.amount_total != o.amount_open">
+                                <t t-if="o.amount_imp != o.amount_total">
                                     <tr>
                                         <td colspan="3">
                                             <strong>Importe base para Crédito Fiscal, Ley° 317</strong>
