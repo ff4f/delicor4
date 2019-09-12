@@ -10,6 +10,7 @@ from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError, ValidationError
 import datetime
 
+
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
@@ -192,7 +193,9 @@ class AccountInvoice(models.Model):
                 if not nit_ci and not razon:
                     raise ValidationError(_(
                         'Debe registrar NIT/CI o Razón Social para facturar'))
-                elif not invoice.partner_id.nit_ci and not invoice.partner_id.razon_social:
+
+                elif invoice.partner_id.nit_ci in ('0', '') and invoice.partner_id.razon_social in (
+                        's/n', 'S/N', 's/N', 'S/n', 'Sin Nombre'):
                     invoice.partner_id.write(
                         {'nit_ci': nit_ci, 'razon_social': razon})
                 else:
@@ -204,7 +207,7 @@ class AccountInvoice(models.Model):
                         'Fecha limite de dosificación superado, registre una nueva dosificación'))
 
                 if nit_ci == '0' and (
-                        razon == 'S/N' or razon == 's/n' or razon == 'sin nombre') and monto > invoice.company_id.amount_valid:
+                        razon in ('S/N', 's/n', 'sin nombre')) and monto > invoice.company_id.amount_valid:
                     raise ValidationError(_(
                         'El monto de la factura no esta permitido para las facturas con\nRazon Social = S/N y NIT o CI = 0'))
 

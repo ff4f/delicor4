@@ -16,10 +16,13 @@ class ResPartner(models.Model):
 
     @api.constrains('razon_social', 'company_id')
     def _check_razon_unico(self):
-        if self.razon_social:
-            val = self.search_count([('razon_social', '=', self.razon_social), ('company_id', '=', self.company_id.id),
-                                     ('user_ids', '=', False)])
-            if val > 1 and self.razon_social != 'S/N' and not self.user_ids:
+        if self.razon_social and self.company_type != 'person':
+            val = self.search_count([
+                ('razon_social', '=', self.razon_social),
+                ('company_id', '=', self.company_id.id),
+                ('user_ids', '=', False)
+            ])
+            if val > 1 and self.razon_social not in ('S/N', 's/n', 'sin nombre') and not self.user_ids:
                 raise ValidationError(_("La Razon Social ya esta registrado para su compañia."))
 
     @api.constrains('nit_ci', 'company_id')
@@ -27,7 +30,7 @@ class ResPartner(models.Model):
         if self.nit_ci:
             val = self.search_count(
                 [('nit_ci', '=', self.nit_ci), ('company_id', '=', self.company_id.id), ('user_ids', '=', False)])
-            if val > 1 and (self.nit_ci != '0' or not self.nit_ci):
+            if val > 1 and (self.nit_ci not in ('0', '') or not self.nit_ci):
                 raise ValidationError(_("El NIT o CI ya esta registrado para su compañia."))
 
     @api.onchange('nit_ci')
