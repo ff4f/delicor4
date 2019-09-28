@@ -94,6 +94,7 @@
                 <field name="comment" position="before">
                     <group>
                         <group string="Datos SIN Compras">
+                            <field name="qr_text" attrs="{'readonly': [('state','!=','draft')]}"/>
                             <field name="n_autorizacion" attrs="{'readonly': [('state','!=','draft')]}" widget="mask"
                                    data-inputmask="'mask': '9', 'repeat': 10, 'greedy' : false" required="1"/>
                             <field name="n_dui" attrs="{'readonly': [('state','!=','draft')]}"/>

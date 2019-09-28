@@ -61,6 +61,8 @@ class AccountInvoice(models.Model):
     n_autorizacion = fields.Char(string=u"Nro. Autorización")
     n_factura = fields.Integer(string=u"Nro. Factura", size=10, digits=(16, 0), copy=False, default=0)
     codigo_control = fields.Char(string=u"Código Control", size=100, default='0', copy=False)
+    qr_text = fields.Char(string=u"Cadena Codigo QR", copy=False,
+                          help='Puede poner sobre este campo un lector QR para que se distribuya los datos dentro de la factura')
     date_end = fields.Date(string="Límite emisión", related="dosificacion.date_end",
                            help="Fecha Límite de emision para la dosificación asignada")
     amount_text = fields.Char(string=u"Monto Literal")
@@ -128,6 +130,22 @@ class AccountInvoice(models.Model):
                     invoice.nit_ci = invoice.partner_id.nit_ci
                 else:
                     invoice.nit_ci = '0'
+
+    @api.onchange('qr_text')
+    def onchange_qr_text(self):
+        if self.qr_text:
+            s = self.qr_text
+            ta = s.split('|')
+            n_fact = ta[1]
+            n_aut = ta[2]
+            cc_control = ta[6]
+            fecha = ta[3]
+            fech = datetime.datetime.strptime(fecha, '%d/%m/%Y')
+            fec = fech.date()
+            self.n_autorizacion = n_aut
+            self.n_factura = n_fact
+            self.codigo_control = cc_control
+            self.date_invoice = fec
 
     @api.onchange('warehouse_id')
     def onchange_warehouse_id(self):

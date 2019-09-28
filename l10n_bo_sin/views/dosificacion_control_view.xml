@@ -37,6 +37,7 @@
                                 <field name="llave"/>
                                 <field name="actividad"/>
                                 <field name="leyenda"/>
+                                <field name="tiempo_alerta"/>
                             </group>
                         </group>
                     </sheet>

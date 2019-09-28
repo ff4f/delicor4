@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="res_dosificacion_alerta_cron" model="ir.cron">
+        <field name="name">Limite Dosificaciones: alertas</field>
+        <field name="model_id" ref="model_dosificacion_control"/>
+        <field name="state">code</field>
+        <field name="code">model.run_alerta()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
     <data noupdate="1">
 
         <!-- LEYENDAS APLICADAS A FACTURAS -->
 
         <record id="leyenda_control_a" model="leyenda.control">
-            <field name="name">Ley N° 453: Si se te ha vulnerado algún derecho puedes exigir la reposición o restauración.</field>
+            <field name="name">Ley N° 453: Si se te ha vulnerado algún derecho puedes exigir la reposición o
+                restauración.
+            </field>
             <field name="type">genericas</field>
         </record>
         <record id="leyenda_control_b" model="leyenda.control">
@@ -13,31 +25,45 @@
             <field name="type">genericas</field>
         </record>
         <record id="leyenda_control_c" model="leyenda.control">
-            <field name="name">Ley N° 453: Están prohibidas las prácticas comerciales abusivas, tienes derecho a denunciarlas.</field>
+            <field name="name">Ley N° 453: Están prohibidas las prácticas comerciales abusivas, tienes derecho a
+                denunciarlas.
+            </field>
             <field name="type">genericas</field>
         </record>
         <record id="leyenda_control_d" model="leyenda.control">
-            <field name="name">Ley N° 453: Tienes derecho a recibir información que te proteja de la publicidad engañosa.</field>
+            <field name="name">Ley N° 453: Tienes derecho a recibir información que te proteja de la publicidad
+                engañosa.
+            </field>
             <field name="type">genericas</field>
         </record>
         <record id="leyenda_control_e" model="leyenda.control">
-            <field name="name">Ley N° 453: Los contratos de adhesión deben redactarse en términos claros, comprensibles, legibles y deben informar todas las facilidades y limitaciones.</field>
+            <field name="name">Ley N° 453: Los contratos de adhesión deben redactarse en términos claros, comprensibles,
+                legibles y deben informar todas las facilidades y limitaciones.
+            </field>
             <field name="type">genericas</field>
         </record>
         <record id="leyenda_control_f" model="leyenda.control">
-            <field name="name">Ley N° 453: Se debe promover el consumo solidario, justo, en armonía con la Madre Tierra y precautelando el hábitat, en el marco del Vivir Bien.</field>
+            <field name="name">Ley N° 453: Se debe promover el consumo solidario, justo, en armonía con la Madre Tierra
+                y precautelando el hábitat, en el marco del Vivir Bien.
+            </field>
             <field name="type">genericas</field>
         </record>
         <record id="leyenda_control_a" model="leyenda.control">
-            <field name="name">Ley N° 453: Si se te ha vulnerado algún derecho puedes exigir la reposición o restauración.</field>
+            <field name="name">Ley N° 453: Si se te ha vulnerado algún derecho puedes exigir la reposición o
+                restauración.
+            </field>
             <field name="type">genericas</field>
         </record>
         <record id="leyenda_control_a" model="leyenda.control">
-            <field name="name">Ley N° 453: Si se te ha vulnerado algún derecho puedes exigir la reposición o restauración.</field>
+            <field name="name">Ley N° 453: Si se te ha vulnerado algún derecho puedes exigir la reposición o
+                restauración.
+            </field>
             <field name="type">genericas</field>
         </record>
         <record id="leyenda_control_a" model="leyenda.control">
-            <field name="name">Ley N° 453: Si se te ha vulnerado algún derecho puedes exigir la reposición o restauración.</field>
+            <field name="name">Ley N° 453: Si se te ha vulnerado algún derecho puedes exigir la reposición o
+                restauración.
+            </field>
             <field name="type">genericas</field>
         </record>
 
