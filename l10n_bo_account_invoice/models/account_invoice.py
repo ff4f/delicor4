@@ -212,13 +212,13 @@ class AccountInvoice(models.Model):
                     raise ValidationError(_(
                         'Debe registrar NIT/CI o Razón Social para facturar'))
 
-                elif invoice.partner_id.nit_ci in ('0', '') and invoice.partner_id.razon_social in (
-                        's/n', 'S/N', 's/N', 'S/n', 'Sin Nombre'):
-                    invoice.partner_id.write(
-                        {'nit_ci': nit_ci, 'razon_social': razon})
-                else:
-                    invoice.write(
-                        {'nit_ci': invoice.partner_id.nit_ci, 'razon_social': invoice.partner_id.razon_social})
+                # elif invoice.partner_id.nit_ci in ('0', '') and invoice.partner_id.razon_social in (
+                #         's/n', 'S/N', 's/N', 'S/n', 'Sin Nombre'):
+                #     invoice.partner_id.write(
+                #         {'nit_ci': nit_ci, 'razon_social': razon})
+                # else:
+                #     invoice.write(
+                #         {'nit_ci': invoice.partner_id.nit_ci, 'razon_social': invoice.partner_id.razon_social})
 
                 if invoice.date_invoice > dosif.date_end:
                     raise ValidationError(_(
