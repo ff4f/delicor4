@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import fields, models,api, _
 from odoo.osv.expression import get_unaccent_wrapper
+import re
 class ResPartner(models.Model):
     _inherit = 'res.partner'
     SELECTION_EXPEDITION = [
@@ -24,8 +25,14 @@ class ResPartner(models.Model):
         for partner in self:
             partner.razon_social = partner.name
 
+    @api.onchange('nit_ci')
+    def onchange_nitci(self):
+        for partner in self:
+            partner.vat = partner.nit_ci
+
     @api.model
-    def name_search(self, name, args=None, operator='ilike', limit=100):
+    def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
+        self = self.sudo(name_get_uid or self.env.uid)
         if args is None:
             args = []
         if name and operator in ('=', 'ilike', '=ilike', 'like', '=like'):
@@ -33,6 +40,7 @@ class ResPartner(models.Model):
             where_query = self._where_calc(args)
             self._apply_ir_rules(where_query, 'read')
             from_clause, where_clause, where_clause_params = where_query.get_sql()
+            from_str = from_clause if from_clause else 'res_partner'
             where_str = where_clause and (" WHERE %s AND " % where_clause) or ' WHERE '
 
             # search on the name of the contacts and of its company
@@ -44,32 +52,37 @@ class ResPartner(models.Model):
 
             unaccent = get_unaccent_wrapper(self.env.cr)
 
-            query = """SELECT id
-                             FROM res_partner
+            query = """SELECT res_partner.id
+                             FROM {from_str}
                           {where} ({email} {operator} {percent}
                                OR {display_name} {operator} {percent}
                                OR {reference} {operator} {percent}
+                               OR {vat} {operator} {percent}
                                OR {nit_ci} {operator} {percent})
                                -- don't panic, trust postgres bitmap
                          ORDER BY {display_name} {operator} {percent} desc,
                                   {display_name}
-                        """.format(where=where_str,
+                        """.format(from_str=from_str,
+                                   where=where_str,
                                    operator=operator,
-                                   email=unaccent('email'),
-                                   display_name=unaccent('display_name'),
-                                   reference=unaccent('ref'),
-                                   nit_ci=unaccent('nit_ci'),
-                                   percent=unaccent('%s'))
+                                   email=unaccent('res_partner.email'),
+                                   display_name=unaccent('res_partner.display_name'),
+                                   reference=unaccent('res_partner.ref'),
+                                   percent=unaccent('%s'),
+                                   vat=unaccent('res_partner.vat'),
+                                   nit_ci=unaccent('res_partner.nit_ci'), )
 
-            where_clause_params += [search_name] * 5
+            where_clause_params += [search_name] * 3  # for email / display_name, reference
+            where_clause_params += [re.sub('[^a-zA-Z0-9]+', '', search_name) or None]  # for vat
+            where_clause_params += [search_name]  # for order by
             if limit:
                 query += ' limit %s'
                 where_clause_params.append(limit)
             self.env.cr.execute(query, where_clause_params)
-            partner_ids = map(lambda x: x[0], self.env.cr.fetchall())
+            partner_ids = [row[0] for row in self.env.cr.fetchall()]
 
             if partner_ids:
                 return self.browse(partner_ids).name_get()
             else:
                 return []
-        return super(ResPartner, self).name_search(name, args, operator=operator, limit=limit)
+        return super(ResPartner, self)._name_search(name, args, operator=operator, limit=limit, name_get_uid=name_get_uid)
