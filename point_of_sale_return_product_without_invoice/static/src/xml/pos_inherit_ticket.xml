@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-extend="PosTicket">
+        <t t-jquery="tr[t-foreach|='orderlines']" t-operation="replace">
+            <tr t-foreach="orderlines" t-as="orderline" t-att-style="orderline.get_product().is_returnable and 'display: none'">
+                <td>
+                    <t t-esc="orderline.get_product().display_name"/>
+                        <t t-if="orderline.get_discount() > 0">
+                        <div class="pos-disc-font">
+                            With a <t t-esc="orderline.get_discount()"/>% discount
+                        </div>
+                    </t>
+                </td>
+                <td class="pos-right-align">
+                    <t t-esc="orderline.get_quantity_str_with_unit()"/>
+                </td>
+                <td class="pos-right-align">
+                    <t t-esc="widget.format_currency(orderline.get_display_price())"/>
+                </td>
+            </tr>
+        </t>
+        <t t-jquery="div.pos-sale-ticket" t-operation="after">
+            <div class="pos-sale-ticket">
+                <div class="pos-center-align"><t t-esc="order.formatted_validation_date"/> <t t-esc="order.name"/></div>
+                <br />
+                <t t-esc="widget.pos.company.name"/><br />
+                <div class="receipt-phone">
+                    Phone: <t t-esc="widget.pos.company.phone || ''"/><br />
+                </div>
+                <div class="receipt-user">
+                    User: <t t-esc="widget.pos.get_cashier().name"/><br />
+                </div>
+                <br />
+                <t t-if="receipt.header">
+                    <div style='text-align:center'>
+                        <t t-esc="receipt.header" />
+                    </div>
+                    <br />
+                </t>
+                <table class='receipt-orderlines'>
+                    <colgroup>
+                        <col width='50%' />
+                        <col width='25%' />
+                        <col width='25%' />
+                    </colgroup>
+                    <tr class="emph" t-foreach="orderlines" t-as="orderline" t-att-style="orderline.get_product().is_returnable == false and 'display: none'">
+                        <td>
+                            <t t-esc="orderline.get_product().display_name"/>
+                            <t t-if="orderline.get_discount() > 0">
+                                <div class="pos-disc-font">
+                                    With a <t t-esc="orderline.get_discount()"/>% discount
+                                </div>
+                            </t>
+                        </td>
+                        <td class="pos-right-align">
+                            <t t-esc="orderline.get_quantity_str_with_unit()"/>
+                        </td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency(orderline.get_display_price())"/>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <div style='text-align:center'>
+                    <h3>Ticket para retorno de envases</h3>
+                </div>
+                <t t-if="receipt.footer">
+                    <br />
+                    <div style='text-align:center'>
+                        <t t-esc="receipt.footer" />
+                    </div>
+                </t>
+
+                
+            </div>
+        </t>
+    </t>
+</templates>

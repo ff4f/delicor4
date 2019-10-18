@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="res_users_form_view" model="ir.ui.view">
+            <field name="name">res.users.form.view.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="point_of_sale.res_users_view_form"/>
+            <field name="arch" type="xml">
+                <field name="pos_security_pin" position="after">
+                    <group string="Pos Config" name="sessions_config">
+                        <group col="6">
+                            <field name='wv_qty'/>
+                            <field name='wv_discount'/>
+                            <field name='wv_price'/>
+                            <field name='wv_plusminus'/>
+                            <field name='wv_payment'/>
+                            <field name='wv_customer'/>
+                            <field name='remove_order'/>
+                            <field name='add_new_order'/>
+                            <field name='remove_orderline'/>
+                            <field name='show_numpad'/>
+                        </group>
+                    </group>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

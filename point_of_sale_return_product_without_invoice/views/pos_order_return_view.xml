@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_pos_order_return_form" model="ir.ui.view">
+            <field name="name">view_pos_order_return_form</field>
+            <field name="model">pos.order.return</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="gen_invoice" string="Gen Invoice" type="object" class="oe_highlight" attrs="{'invisible': [('state','in', ('invoiced','return'))]}"/>
+                        <button name="gen_return" string="Return" type="object" attrs="{'invisible': [('state','in', ('return','invoiced'))]}"/>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                        <div class="oe_clear"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_invoice" string="Invoice" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible':[('state','!=','invoiced')]}">
+                            </button>
+                        </div>
+                        <field name="name"/>
+                        <group>
+                            <group>
+                                <field name="product_id"/>
+                                <field name="quantity"/>
+                            </group>
+                            <group>
+                                <field name="limit_date_return"/>
+                                <field name="journal_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="pos_order_return_action">
+            <field name="name">Returnable products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pos.order.return</field>
+            <field name="domain"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Returnable products"
+            action="pos_order_return_action"
+            parent="point_of_sale.menu_point_of_sale"
+            id="returnable_products_menu"
+            />
+    </data>
+</odoo>

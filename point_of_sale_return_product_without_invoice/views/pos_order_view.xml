@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="inherit_view_pos_order_returb_form" model="ir.ui.view">
+            <field name="name">inherit_view_pos_order_returb_form</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="model">pos.order</field>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="order_return_id"/>
+                </field>
+                <xpath expr="//field[@name='lines']/form/group/field[@name='price_unit']" position="before">
+                    <field name="order_return_id"/>
+                </xpath>
+                <xpath expr="//field[@name='statement_ids']/tree/field[@name='amount']" position="after">
+                    <button name="print_out_payment" class="" type="object" icon="fa-print"/>
+                </xpath>
+                
+                <button name="action_view_invoice" position="after">
+                    <button name="action_view_return" string="Returns" type="object" class="oe_stat_button" icon="fa-pencil-square-o"/>
+                </button>
+            </field>
+        </record>
+    </data>
+</odoo>
