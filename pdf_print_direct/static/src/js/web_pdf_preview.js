@@ -1,4 +1,4 @@
-odoo.define('pdf_print_direct.report', function (require) {
+odoo.define('pdf_print_direct.web_pdf_preview', function (require) {
     'use strict';
 
     var ActionManager = require('web.ActionManager');

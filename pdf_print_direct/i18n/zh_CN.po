@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* report_pdf_print
+#	* pdf_print_direct
 #
 msgid ""
 msgstr ""
@@ -15,10 +15,10 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: report_pdf_print
+#. module: pdf_print_direct
 #. openerp-web
-#: code:addons/report_pdf_print/static/src/js/web_pdf_preview.js:25
+#: code:addons/pdf_print_direct/static/src/js/web_pdf_preview.js:25
 #, python-format
 msgid "Retrieve content..."
-msgstr "获取打印内容..."
+msgstr "Obtener contenido..."
 
