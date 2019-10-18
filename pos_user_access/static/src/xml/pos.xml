@@ -4,9 +4,9 @@
         <t t-jquery=".numpad" t-operation='replace'>
             <div class="numpad custome">
                 <t t-if="! widget.pos.get_cashier().show_numpad">
-                    <button class="input-button number-char" data-number='1'></button>
-                    <button class="input-button number-char" data-number='2'></button>
-                    <button class="input-button number-char" data-number='3'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='1'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='2'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='3'></button>
                 </t>
                 <t t-if=" widget.pos.get_cashier().show_numpad">
                     <button class="input-button number-char" data-number='1'>1</button>
@@ -21,9 +21,9 @@
                 </t>
                 <br />
                 <t t-if="! widget.pos.get_cashier().show_numpad">
-                    <button class="input-button number-char" data-number='4'></button>
-                    <button class="input-button number-char" data-number='5'></button>
-                    <button class="input-button number-char" data-number='6'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='4'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='5'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='6'></button>
                 </t>
                 <t t-if="widget.pos.get_cashier().show_numpad">
                     <button class="input-button number-char" data-number='4'>4</button>
@@ -38,9 +38,9 @@
                 </t>
                 <br />
                 <t t-if="! widget.pos.get_cashier().show_numpad">
-                    <button class="input-button number-char" data-number='7'></button>
-                    <button class="input-button number-char" data-number='8'></button>
-                    <button class="input-button number-char" data-number='9'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='7'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='8'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='9'></button>
                 </t>
                 <t t-if="widget.pos.get_cashier().show_numpad">
                     <button class="input-button number-char" data-number='7'>7</button>
@@ -61,16 +61,23 @@
                     <button class="input-button numpad-minus">+/-</button>
                 </t>
                 <t t-if="! widget.pos.get_cashier().show_numpad">
-                    <button class="input-button number-char" data-number='0'></button>
-                    <button class="input-button number-char" data-number='.'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='0'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='.'></button>
                 </t>
                 <t t-if="widget.pos.get_cashier().show_numpad">
                     <button class="input-button number-char" data-number='0'>0</button>
                     <button class="input-button number-char" data-number='.'>.</button>
                 </t>
-                <button class="input-button numpad-backspace">
-                    <img style="pointer-events: none;" src="/point_of_sale/static/src/img/backspace.png" width="24" height="21" />
-                </button>
+                <t t-if="! widget.pos.get_cashier().remove_orderline">
+                    <button class="input-button numpad-backspace" disabled="disabled">
+                        <!-- <img style="pointer-events: none;" src="/point_of_sale/static/src/img/backspace.png" width="24" height="21" /> -->
+                    </button>
+                </t>
+                <t t-if="widget.pos.get_cashier().remove_orderline">
+                    <button class="input-button numpad-backspace">
+                        <img style="pointer-events: none;" src="/point_of_sale/static/src/img/backspace.png" width="24" height="21" />
+                    </button>
+                </t>
             </div>
         </t>
     </t>
