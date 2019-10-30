@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
-
+                    <t t-set="descuento" t-value="0"/>
                     <table class="table table-condensed" style="font-size: 13px; width: 390px; margin-left:-10px;">
                         <tbody class="invoice_tbody">
                             <tr style="line-height: 14px;">
@@ -132,7 +132,12 @@
                                     <span t-field="l.uom_id" groups="product.group_uom"/>
                                 </td>
                                 <td>
-                                    <span t-field="l.product_id.name"/>
+                                    <t t-set="descuento" t-value="descuento + l.discount_amt"/>
+                                    <span t-field="l.product_id.name"/><br />
+                                    <t t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                        <t t-set="t_desc" t-value="l.discount"/>
+                                        <span style="font-size: 11px;">Con un/una <t t-esc="'{0:,.2f}'.format(t_desc)"/>% Descuento</span>
+                                    </t>
                                 </td>
                                 <td class="text-right">
                                     <t t-esc="'{0:,.2f}'.format(l.price_unit)"/>
@@ -144,11 +149,27 @@
                             </tr>
                             <tr style="line-height: 14px;">
                                 <td class="text-left" colspan="2">
-                                    <strong>Total Bs.:</strong>
+                                    <strong>Subtotal Bs.:</strong><br />
+                                    <strong>Descuento Bs.:</strong><br />
+                                    <strong>Total Bs.:</strong><br />
+                                    <strong>Efectivo Bs:</strong><br />
+                                    <strong>Cambio Bs:</strong>
                                 </td>
                                 <td class="text-right" colspan="2">
                                     <strong>
+                                        <t t-esc="'{0:,.2f}'.format(o.amount_open)"/>
+                                    </strong><br />
+                                    <strong>
+                                        <t t-esc="'{0:,.2f}'.format(descuento)"/>
+                                    </strong><br />
+                                    <strong>
                                         <t t-esc="'{0:,.2f}'.format(o.amount_total)"/>
+                                    </strong><br />
+                                    <strong>
+                                        <t t-esc="'{0:,.2f}'.format(o.amount_total + o.amount_change)"/>
+                                    </strong><br />
+                                    <strong>
+                                        <t t-esc="'{0:,.2f}'.format(o.amount_change)"/>
                                     </strong>
                                 </td>
                             </tr>
@@ -164,7 +185,7 @@
                                 <tr style="line-height: 14px; font-size:10px;">
                                     <td colspan="4">
                                         <strong>Importe base para Crédito Fiscal, Ley N° 317 Bs.</strong>
-                                        <t t-esc="'{0:,.2f}'.format(o.amount_total-o.amount_exe - o.amount_ice_iehd)"/>
+                                        <t t-esc="'{0:,.2f}'.format(o.amount_total - o.amount_exe - o.amount_ice_iehd)"/>
                                     </td>
                                 </tr>
                             </t>

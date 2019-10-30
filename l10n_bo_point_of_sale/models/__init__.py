@@ -3,4 +3,5 @@
 
 from . import point_of_sale
 from . import pos_invoice
+from . import account_invoice
 
