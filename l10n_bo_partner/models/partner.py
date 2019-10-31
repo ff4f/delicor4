@@ -70,10 +70,11 @@ class ResPartner(models.Model):
                                    reference=unaccent('res_partner.ref'),
                                    percent=unaccent('%s'),
                                    vat=unaccent('res_partner.vat'),
-                                   nit_ci=unaccent('res_partner.nit_ci'), )
+                                   nit_ci=unaccent('res_partner.nit_ci'),)
 
             where_clause_params += [search_name] * 3  # for email / display_name, reference
             where_clause_params += [re.sub('[^a-zA-Z0-9]+', '', search_name) or None]  # for vat
+            where_clause_params += [re.sub('[^a-zA-Z0-9]+', '', search_name) or None]  # for nit_ci
             where_clause_params += [search_name]  # for order by
             if limit:
                 query += ' limit %s'
