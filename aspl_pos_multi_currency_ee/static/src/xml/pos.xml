@@ -40,7 +40,7 @@
     	</t>
     </t>
 
-    <t t-name="CurrencyRateUpdatePopup">
+    <!-- <t t-name="CurrencyRateUpdatePopup">
         <div class="modal-dialog">
             <div class="popup popup-textinput rate_update">
                 <p class="title">Update Rate</p>
@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-    </t>
+    </t> -->
 
     <t t-extend="PaymentScreenWidget">
         <t t-jquery="div.top-content span.back" t-operation="after">
