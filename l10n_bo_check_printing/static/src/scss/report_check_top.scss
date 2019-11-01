@@ -1,0 +1,73 @@
+.ckbo_top_page {
+    .ckbo_check {
+        top: -0.02in;
+    }
+    .ckbo_stub_1 {
+        top: 3.45in;
+    }
+    .ckbo_stub_2 {
+        top: 7in;
+    }
+
+    .ckbo_check .sequence_number {
+        top: 0.1in;
+        left: 8.78in;
+        width: 0.7in;
+    }
+    .ckbo_address {
+        top: 0.55in;
+        left: 5.70in;
+        width: 1.52in;
+        text-align: center;
+    }
+    .ckbo_date_day {
+        top: 0.55in;
+        left: 7.16in;
+        width: 0.82in;
+        text-align: center;
+    }
+    .ckbo_date_month {
+        top: 0.55in;
+        left: 7.98in;
+        width: 1.47in;
+        text-align: center;
+    }
+    .ckbo_date_year {
+        top: 0.55in;
+        left: 9.45in;
+        width: 1.47in;
+        text-align: center;
+    }
+    .ckbo_payee_name {
+        top: 0.95in;
+        left: 1.85in;
+        width: 6.0in;
+        text-align: left;
+    }
+    .ckbo_amount {
+        top: 1.07in;
+        left: 6.77in;
+        width: 1.08in;
+        text-align: left;
+    }
+    .ckbo_amount_in_word {
+        top: 1.35in;
+        left: 1.85in;
+        width: 7in;
+        text-align: left;
+        font-weight: bold;
+        overflow: hidden;
+    }
+    .ckbo_payee_addr {
+        top: 1.65in;
+        left: 0.85in;
+    }
+    .ckbo_memo {
+        top: 2.61in;
+        left: 1.6in;
+        width: 2.9in;
+        text-align: left;
+        font-size: 0.9em;
+        overflow: hidden;
+    }
+}

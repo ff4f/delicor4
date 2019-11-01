@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+<template id="assets_common" name="l10n_bo_check_printing pdf assets" inherit_id="web.report_assets_common">
+    <xpath expr="." position="inside">
+        <link rel="stylesheet" type="text/scss" href="/l10n_bo_check_printing/static/src/scss/report_check_commons.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/l10n_bo_check_printing/static/src/scss/report_check_bottom.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/l10n_bo_check_printing/static/src/scss/report_check_middle.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/l10n_bo_check_printing/static/src/scss/report_check_top.scss"/>
+    </xpath>
+</template>
+
+<template id="ckbo_check">
+    <div class="ckbo_check">
+        <t t-if="page['state'] == 'cancelled'">
+            <div class="o-watermark">VOID</div>
+        </t>
+        <div class="sequence_number" t-if="page['sequence_number']" t-esc="page['sequence_number']" />
+        <div class="ckbo_address" t-esc="page['partner_id']" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+        <div class="ckbo_date_day" t-esc="page['payment_date'].split('/')[0]"/>
+        <div class="ckbo_date_month" t-esc="page['payment_date'].split('/')[1]"/>
+        <div class="ckbo_date_year" t-esc="page['payment_date'].split('/')[2]"/>
+        <div class="ckbo_payee_name" t-esc="page['partner_name']"/>
+        <div class="ckbo_amount_in_word" t-esc="page['amount_in_word']"/>
+        <div class="ckbo_memo" t-esc="page['memo']"/>
+    </div>
+</template>
+
+<template id="ckbo_stub">
+    <div t-attf-class="ckbo_stub ckbo_stub_{{ stub_num }}">
+        
+    </div>
+</template>
+
+</data>
+</odoo>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="statement_line_report">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <table width="100%">
+                        <tr style="padding-top:5px">
+                            <td width="40%">
+                            </td>
+                            <td width="60%">
+                                Vale Nº <div t-field="o.number"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%" style="margin-top:50px">
+                        <tr style="padding-top:5px">
+                            <td width="35%">
+                                La paz <span t-field="o.create_date"/>
+                            </td>
+                            <td width="30%">
+                            </td>
+                            <td width="35%">
+                                Por <span t-field="o.amount"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%" style="margin-top:10px">
+                        <tr style="padding-top:5px">
+                            <td width="20%">
+                                Entregado por 
+                            </td>
+                            <td style="border-bottom: black 1px solid" width="80%">
+                                <div t-field="o.sender_id"/>
+                            </td>
+                        </tr>
+                        <tr style="padding-top:5px">
+                            <td width="20%">
+                                Recibido por 
+                            </td>
+                            <td style="border-bottom: black 1px solid" width="20%">
+                                <div t-field="o.receive_id"/>
+                            </td>
+                        </tr>
+                        <tr style="padding-top:5px">
+                            <td width="20%">
+                                Por concepto de 
+                            </td>
+                            <td style="border-bottom: black 1px solid" width="80%">
+                                <div t-field="o.name"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%">
+                        <tr style="padding-top:5px">
+                            <td width="15%">
+                                Autorizado por 
+                            </td>
+                            <td style="border-bottom: black 1px solid" width="35%">
+                                <div t-field="o.auth_id"/>
+                            </td>
+                            <td width="10%">
+                                Firma 
+                            </td>
+                            <td style="border-bottom: black 1px solid" width="40%">
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%" style="margin-top:50px">
+                        <tr style="padding-top:5px">
+                            <td width="25%">
+                            </td>
+                            <td style="border-bottom: black 1px solid" width="50%">
+                            </td>
+                            <td width="25%">
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%" style="margin-top:10px">
+                        <tr style="padding-top:5px">
+                            <td width="45%">
+                            </td>
+                            <td width="55%">
+                                Firma Receptor
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <report 
+        id="report_ticket_payment_action" 
+        model="cash.box.in" 
+        string="Ticket payment"
+        name="point_of_sale_return_product_without_invoice.statement_line_report" 
+        file="point_of_sale_return_product_without_invoice.statement_line_report"
+        report_type="qweb-pdf"
+        menu="False"
+    />
+    <report 
+        id="report_ticket_payment_action_out" 
+        model="cash.box.out" 
+        string="Ticket payment"
+        name="point_of_sale_return_product_without_invoice.statement_line_report" 
+        file="point_of_sale_return_product_without_invoice.statement_line_report"
+        report_type="qweb-pdf"
+        menu="False"
+    />
+</odoo>
