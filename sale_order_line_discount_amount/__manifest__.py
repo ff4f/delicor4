@@ -14,6 +14,7 @@
         "sale",
         "purchase",
         "stock_account",
+        "account",
     ],
     "data": [
         'views/sale_view.xml',

@@ -121,7 +121,7 @@
                 <field name="number" position="after">
                     <field name="n_factura"/>
                 </field>
-                <field name="amount_tax" position="after">
+                <field name="amount_tax_signed" position="after">
                     <field name="amount_imp"/>
                 </field>
             </field>
