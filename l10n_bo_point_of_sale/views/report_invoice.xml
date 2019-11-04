@@ -103,7 +103,7 @@
                         <div class="row">
                             <div class="text-left">
                                 <strong>Fecha:</strong>
-                                <span t-esc="o.date_invoice.strftime('%m/%d/%Y')"/>
+                                <span t-esc="o.date_invoice.strftime('%d/%m/%Y')"/>
                                 <br/>
                                 <strong>Hora:</strong>
                                 <span t-esc="context_timestamp(o.date_time).strftime('%H:%M')"/>
