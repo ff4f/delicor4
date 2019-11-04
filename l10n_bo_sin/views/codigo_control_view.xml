@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id='codigo_control_view_tree' model='ir.ui.view'>
+            <field name="name">codigo.control.tree</field>
+            <field name="model">codigo.control</field>
+            <field name="arch" type="xml">
+                <tree string="Validar Codigo Control" editable="bottom">
+                    <field name="n_autorizacion" />
+                    <field name="n_factura" />
+                    <field name="nit_ci" />
+                    <field name="fecha" />
+                    <field name="monto" />
+                    <field name="llave" />
+                    <button name="get_codigo_control" string="Generar CC" type="object" icon="fa-list"/>
+                    <field name="codigo_control" />
+                </tree>
+            </field>
+        </record>
+        
+        <record id='codigo_control_action' model='ir.actions.act_window'>
+            <field name="name">Validar Codigo Control</field>
+            <field name="res_model">codigo.control</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <!--<field name="context">{"search_default_groupby_vehicle" : True}</field>-->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click en Añadir element.
+              </p><p>
+                Con esta opción podra validar el sistema de facturación para registrarlo
+                en la Ofician Virtual de Impuestos
+              </p>
+            </field>
+        </record>
+        <menuitem name="Oficina Virtual SIN" parent="account.menu_finance_configuration" id="codigo_control" sequence="2"/>
+        <menuitem action="codigo_control_action" parent="codigo_control" id="codigo_control_menu"/>
+    </data>
+</odoo>

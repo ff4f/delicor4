@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_actividad_economica,actividad_economica,model_actividad_economica,account.group_account_manager,1,1,1,1
+access_codigo_control,codigo_control,model_codigo_control,account.group_account_manager,1,1,1,1
+access_dosificacion_control,dosificacion_control,model_dosificacion_control,account.group_account_manager,1,1,1,1
+access_leyenda_control,leyenda_control,model_leyenda_control,account.group_account_manager,1,1,1,1

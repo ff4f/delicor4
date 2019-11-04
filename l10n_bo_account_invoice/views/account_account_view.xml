@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_account_l10n_bo">
+            <field name="name">view.account.account.l10n.bo</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <field name="currency_id" position="after">
+                    <field name="option_discount"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

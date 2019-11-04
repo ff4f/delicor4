@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id='actividad_economica_view_tree' model='ir.ui.view'>
+            <field name="name">actividad.economica.tree</field>
+            <field name="model">actividad.economica</field>
+            <field name="arch" type="xml">
+                <tree string="Actividades" editable="bottom">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        
+        <record id='actividad_economica_action' model='ir.actions.act_window'>
+            <field name="name">Actividad Económica</field>
+            <field name="res_model">actividad.economica</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click en Añadir Elementos
+              </p><p>
+                Puede registrara las distintidas actividades econimicas para visualizar
+              </p>
+            </field>
+        </record>
+        <menuitem action="actividad_economica_action" parent="codigo_control" id="actividad_economica_menu"/>
+    </data>
+</odoo>

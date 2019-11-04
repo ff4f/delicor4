@@ -1,0 +1,1355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="account_reports_bo_sin_statements_menu" action="account.action_account_chart_template_form"
+              name="Bolivia PC" parent="account.menu_finance_reports" sequence="0" groups="account.group_account_user"/>
+
+    <!-- Account Types -->
+
+    <record id="transfer_account_sin_id" model="account.account.template">
+        <field name="name">CUENTA DE TRANSFERENCIA</field>
+        <field name="code">117</field>
+        <field name="reconcile" eval="True"/>
+        <field ref="account.data_account_type_current_assets" name="user_type_id"/>
+    </record>
+
+    <record id="bo_sin_chart_template" model="account.chart.template">
+        <field name="name">Bolivia - Plan de Cuentas SIN-SIAT</field>
+        <field name="code_digits">6</field>
+        <field name="bank_account_code_prefix">114</field>
+        <field name="cash_account_code_prefix">111</field>
+        <field name="currency_id" ref="base.BOB"/>
+        <field name="transfer_account_id" ref="transfer_account_sin_id"/>
+    </record>
+
+    <record id="transfer_account_sin_id" model="account.account.template">
+        <field name="chart_template_id" ref="bo_sin_chart_template"/>
+    </record>
+
+    <!-- Grupo contable -->
+    <!-- Plantilla Balance General -->
+    <record id='100000' model='account.group'>
+        <field name='name'>ACTIVOS</field>
+        <field name='code_prefix'>100000</field>
+    </record>
+
+    <record id='110000' model='account.group'>
+        <field name='name'>ACTIVOS CORRIENTES</field>
+        <field name='code_prefix'>110000</field>
+        <field name="parent_id" ref="100000"/>
+    </record>
+
+    <record id='111000' model='account.group'>
+        <field name='name'>EFECTIVO Y EQUIVALENTES DE EFECTIVO</field>
+        <field name='code_prefix'>111000</field>
+        <field name="parent_id" ref="110000"/>
+    </record>
+
+    <record id='111001' model='account.account.template'>
+        <field name='name'>CAJA</field>
+        <field name='code'>111001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="111000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='111002' model='account.account.template'>
+        <field name='name'>FONDO FIJO</field>
+        <field name='code'>111002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="111000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='111003' model='account.account.template'>
+        <field name='name'>BANCOS</field>
+        <field name='code'>111003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_liquidity' name='user_type_id'/>
+        <field name="group_id" ref="111000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='111004' model='account.account.template'>
+        <field name='name'>INVERSIONES TEMPORALES</field>
+        <field name='code'>111004</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="111000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='112000' model='account.group'>
+        <field name='name'>CUENTAS POR COBRAR</field>
+        <field name='code_prefix'>112000</field>
+        <field name="parent_id" ref="110000"/>
+    </record>
+
+    <record id='112001' model='account.account.template'>
+        <field name='name'>CUENTAS POR COBRAR COMERCIALES</field>
+        <field name='code'>112001</field>
+        <field name='reconcile' eval='True'/>
+        <field ref='account.data_account_type_receivable' name='user_type_id'/>
+        <field name="group_id" ref="112000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='112002' model='account.account.template'>
+        <field name='name'>OTRAS CUENTAS POR COBRAR</field>
+        <field name='code'>112002</field>
+        <field name='reconcile' eval='True'/>
+        <field ref='account.data_account_type_receivable' name='user_type_id'/>
+        <field name="group_id" ref="112000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='112003' model='account.account.template'>
+        <field name='name'>CUENTAS POR COBRAR A EMPRESAS RELACIONADAS</field>
+        <field name='code'>112003</field>
+        <field name='reconcile' eval='True'/>
+        <field ref='account.data_account_type_receivable' name='user_type_id'/>
+        <field name="group_id" ref="112000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='112004' model='account.account.template'>
+        <field name='name'>ANTICIPO A PROVEEDORES</field>
+        <field name='code'>112004</field>
+        <field name='reconcile' eval='True'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="112000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='112005' model='account.account.template'>
+        <field name='name'>PROVISIÓN PARA CUENTAS INCOBRABLES</field>
+        <field name='code'>112005</field>
+        <field name='reconcile' eval='True'/>
+        <field ref='account.data_account_type_receivable' name='user_type_id'/>
+        <field name="group_id" ref="112000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='113000' model='account.group'>
+        <field name='name'>INVENTARIOS</field>
+        <field name='code_prefix'>113000</field>
+        <field name="parent_id" ref="110000"/>
+    </record>
+
+    <record id='113001' model='account.account.template'>
+        <field name='name'>INVENTARIOS DE PRODUCTOS TERMINADOS</field>
+        <field name='code'>113001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="113000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='113002' model='account.account.template'>
+        <field name='name'>INVENTARIOS DE PRODUCTOS EN PROCESO</field>
+        <field name='code'>113002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="113000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='113003' model='account.account.template'>
+        <field name='name'>INVENTARIOS DE MATERIA PRIMA</field>
+        <field name='code'>113003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="113000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='113004' model='account.account.template'>
+        <field name='name'>INVENTARIO EN TRÁNSITO</field>
+        <field name='code'>113004</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="113000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='113005' model='account.account.template'>
+        <field name='name'>PROVISIÓN PARA OBSOLESCENCIAS</field>
+        <field name='code'>113005</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="113000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='114000' model='account.group'>
+        <field name='name'>OTROS ACTIVOS CORRIENTES</field>
+        <field name='code_prefix'>114000</field>
+        <field name="parent_id" ref="110000"/>
+    </record>
+
+    <record id='114001' model='account.account.template'>
+        <field name='name'>CRÉDITO FISCAL IVA</field>
+        <field name='code'>114001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="114000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='114002' model='account.account.template'>
+        <field name='name'>IMPUESTOS POR RECUPERAR</field>
+        <field name='code'>114002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_other_income' name='user_type_id'/>
+        <field name="group_id" ref="114000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='114003' model='account.account.template'>
+        <field name='name'>PAGOS ANTICIPADOS</field>
+        <field name='code'>114003</field>
+        <field name='reconcile' eval='True'/>
+        <field ref='account.data_account_type_payable' name='user_type_id'/>
+        <field name="group_id" ref="114000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='114004' model='account.account.template'>
+        <field name='name'>OTROS ACTIVOS</field>
+        <field name='code'>114004</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="114000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='114005' model='account.account.template'>
+        <field name='name'>CUENTA DE TRANSFERENCIA</field>
+        <field name='code'>114005</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="114000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='120000' model='account.group'>
+        <field name='name'>ACTIVOS NO CORRIENTES</field>
+        <field name='code_prefix'>120000</field>
+        <field name="parent_id" ref="100000"/>
+    </record>
+
+    <record id='121000' model='account.group'>
+        <field name='name'>CUENTAS POR COBRAR A LARGO PLAZO</field>
+        <field name='code_prefix'>121000</field>
+        <field name="parent_id" ref="120000"/>
+    </record>
+
+    <record id='121001' model='account.account.template'>
+        <field name='name'>CUENTAS COMERCIALES POR COBRAR A LARGO PLAZO</field>
+        <field name='code'>121001</field>
+        <field name='reconcile' eval='True'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="121000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='121002' model='account.account.template'>
+        <field name='name'>OTRAS CUENTAS POR COBRAR</field>
+        <field name='code'>121002</field>
+        <field name='reconcile' eval='True'/>
+        <field ref='account.data_account_type_receivable' name='user_type_id'/>
+        <field name="group_id" ref="121000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='121003' model='account.account.template'>
+        <field name='name'>CUENTAS POR COBRAR A EMPRESAS RELACIONADAS</field>
+        <field name='code'>121003</field>
+        <field name='reconcile' eval='True'/>
+        <field ref='account.data_account_type_receivable' name='user_type_id'/>
+        <field name="group_id" ref="121000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='122000' model='account.group'>
+        <field name='name'>INVENTARIO NO CORRIENTE</field>
+        <field name='code_prefix'>122000</field>
+        <field name="parent_id" ref="120000"/>
+    </record>
+    <record id='122001' model='account.account.template'>
+        <field name='name'>INVENTARIOS DE REPUESTOS</field>
+        <field name='code'>122001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="122000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='122002' model='account.account.template'>
+        <field name='name'>OTROS INVENTARIOS</field>
+        <field name='code'>122002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_assets' name='user_type_id'/>
+        <field name="group_id" ref="122000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='123000' model='account.group'>
+        <field name='name'>PROPIEDAD PLANTA Y EQUIPO (ACTIVO FIJO)</field>
+        <field name='code_prefix'>123000</field>
+        <field name="parent_id" ref="120000"/>
+    </record>
+
+    <record id='123001' model='account.account.template'>
+        <field name='name'>TERRENOS</field>
+        <field name='code'>123001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="123000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='123002' model='account.account.template'>
+        <field name='name'>EDIFICIOS</field>
+        <field name='code'>123002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="123000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='123003' model='account.account.template'>
+        <field name='name'>DEPRECIACIÓN ACUMULADA EDIFICIO</field>
+        <field name='code'>123003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="123000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='123004' model='account.account.template'>
+        <field name='name'>MAQUINARIAS</field>
+        <field name='code'>123004</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="123000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='123005' model='account.account.template'>
+        <field name='name'>DEPRECIACIÓN ACUMULADA MAQUINARIAS</field>
+        <field name='code'>123005</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="123000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='123006' model='account.account.template'>
+        <field name='name'>VEHÍCULOS</field>
+        <field name='code'>123006</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="123000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='123007' model='account.account.template'>
+        <field name='name'>DEPRECIACIÓN ACUMULADA VEHÍCULOS</field>
+        <field name='code'>123007</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="123000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='123008' model='account.account.template'>
+        <field name='name'>MUEBLES Y ENSERES</field>
+        <field name='code'>123008</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="123000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='123009' model='account.account.template'>
+        <field name='name'>DEPRECIACIÓN ACUMULADA MUEBLES Y ENSERES</field>
+        <field name='code'>123009</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="123000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='123010' model='account.account.template'>
+        <field name='name'>EQUIPOS DE COMPUTACIÓN</field>
+        <field name='code'>123010</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="123000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='123011' model='account.account.template'>
+        <field name='name'>DEPRECIACIÓN ACUMULADA EQUIPOS DE COMPUTACIÓN</field>
+        <field name='code'>123011</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="123000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='124000' model='account.group'>
+        <field name='name'>PROPIEDADES DE INVERSIÓN</field>
+        <field name='code_prefix'>124000</field>
+        <field name="parent_id" ref="120000"/>
+    </record>
+    <record id='125000' model='account.group'>
+        <field name='name'>ACTIVOS INTANGIBLES</field>
+        <field name='code_prefix'>125000</field>
+        <field name="parent_id" ref="120000"/>
+    </record>
+
+    <record id='125001' model='account.account.template'>
+        <field name='name'>PATENTES Y MARCAS</field>
+        <field name='code'>125001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="125000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='125002' model='account.account.template'>
+        <field name='name'>AMORTIZACIÓN ACUMULADA PATENTES Y MARCAS</field>
+        <field name='code'>125002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="125000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='125003' model='account.account.template'>
+        <field name='name'>DERECHOS DE LLAVE</field>
+        <field name='code'>125003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="125000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='125004' model='account.account.template'>
+        <field name='name'>AMORTIZACIÓN ACUMULADA DERECHO DE LLAVE</field>
+        <field name='code'>125004</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_fixed_assets' name='user_type_id'/>
+        <field name="group_id" ref="125000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='126000' model='account.group'>
+        <field name='name'>INVERSIONES PERMANENTES</field>
+        <field name='code_prefix'>126000</field>
+        <field name="parent_id" ref="120000"/>
+    </record>
+    <record id='127000' model='account.group'>
+        <field name='name'>ACTIVOS DIFERIDOS</field>
+        <field name='code_prefix'>127000</field>
+        <field name="parent_id" ref="120000"/>
+    </record>
+    <record id='128000' model='account.group'>
+        <field name='name'>OTROS ACTIVOS NO CORRIENTES</field>
+        <field name='code_prefix'>128000</field>
+        <field name="parent_id" ref="120000"/>
+    </record>
+
+    <!-- PASIVOS -->
+
+    <record id='200000' model='account.group'>
+        <field name='name'>PASIVOS</field>
+        <field name='code_prefix'>200000</field>
+    </record>
+    <record id='210000' model='account.group'>
+        <field name='name'>PASIVOS CORRIENTES</field>
+        <field name='code_prefix'>210000</field>
+        <field name="parent_id" ref="200000"/>
+    </record>
+    <record id='211000' model='account.group'>
+        <field name='name'>OBLIGACIONES BANCARIAS Y FINANCIERAS</field>
+        <field name='code_prefix'>211000</field>
+        <field name="parent_id" ref="210000"/>
+    </record>
+
+    <record id='211001' model='account.account.template'>
+        <field name='name'>PRÉSTAMOS BANCARIOS</field>
+        <field name='code'>211001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="211000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='211002' model='account.account.template'>
+        <field name='name'>OTROS PASIVOS FINANCIEROS</field>
+        <field name='code'>211002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="211000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='211003' model='account.account.template'>
+        <field name='name'>INTERESES POR PAGAR</field>
+        <field name='code'>211003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="211000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='212000' model='account.group'>
+        <field name='name'>CUENTAS POR PAGAR</field>
+        <field name='code_prefix'>212000</field>
+        <field name="parent_id" ref="210000"/>
+    </record>
+
+    <record id='212001' model='account.account.template'>
+        <field name='name'>CUENTAS POR PAGAR COMERCIALES</field>
+        <field name='code'>212001</field>
+        <field name='reconcile' eval='True'/>
+        <field ref='account.data_account_type_payable' name='user_type_id'/>
+        <field name="group_id" ref="212000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='212002' model='account.account.template'>
+        <field name='name'>DOCUMENTOS POR PAGAR</field>
+        <field name='code'>212002</field>
+        <field name='reconcile' eval='True'/>
+        <field ref='account.data_account_type_payable' name='user_type_id'/>
+        <field name="group_id" ref="212000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='212003' model='account.account.template'>
+        <field name='name'>CUENTAS POR PAGAR A EMPRESAS RELACIONADAS</field>
+        <field name='code'>212003</field>
+        <field name='reconcile' eval='True'/>
+        <field ref='account.data_account_type_payable' name='user_type_id'/>
+        <field name="group_id" ref="212000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='213000' model='account.group'>
+        <field name='name'>OBLIGACIONES SOCIALES Y FISCALES</field>
+        <field name='code_prefix'>213000</field>
+        <field name="parent_id" ref="210000"/>
+    </record>
+
+    <record id='213001' model='account.account.template'>
+        <field name='name'>SUELDOS POR PAGAR</field>
+        <field name='code'>213001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="213000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='213002' model='account.account.template'>
+        <field name='name'>BENEFICIOS SOCIALES POR PAGAR</field>
+        <field name='code'>213002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="213000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='213003' model='account.account.template'>
+        <field name='name'>CARGAS SOCIALES</field>
+        <field name='code'>213003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="213000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='213004' model='account.account.template'>
+        <field name='name'>DÉBITO FISCAL - IVA</field>
+        <field name='code'>213004</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="213000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='213005' model='account.account.template'>
+        <field name='name'>IMPUESTO A LAS TRANSACCIONES POR PAGAR</field>
+        <field name='code'>213005</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="213000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='213006' model='account.account.template'>
+        <field name='name'>IMPUESTOS SOBRE LAS UTILIDADES DE LAS EMPRESAS POR PAGAR</field>
+        <field name='code'>213006</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="213000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='213007' model='account.account.template'>
+        <field name='name'>RETENCIONES POR PAGAR</field>
+        <field name='code'>213007</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="213000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='213008' model='account.account.template'>
+        <field name='name'>OTROS IMPUESTOS POR PAGAR</field>
+        <field name='code'>213008</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="213000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='214000' model='account.group'>
+        <field name='name'>PROVISIONES</field>
+        <field name='code_prefix'>214000</field>
+        <field name="parent_id" ref="210000"/>
+    </record>
+    <record id='215000' model='account.group'>
+        <field name='name'>INGRESOS DIFERIDOS</field>
+        <field name='code_prefix'>215000</field>
+        <field name="parent_id" ref="210000"/>
+    </record>
+    <record id='216000' model='account.group'>
+        <field name='name'>OTROS PASIVOS CORRIENTES</field>
+        <field name='code_prefix'>216000</field>
+        <field name="parent_id" ref="210000"/>
+    </record>
+
+    <record id='220000' model='account.group'>
+        <field name='name'>PASIVOS NO CORRIENTES</field>
+        <field name='code_prefix'>220000</field>
+        <field name="parent_id" ref="200000"/>
+    </record>
+    <record id='221000' model='account.group'>
+        <field name='name'>OBLIGACIONES BANCARIAS Y FINANCIERAS A LARGO PLAZO</field>
+        <field name='code_prefix'>221000</field>
+        <field name="parent_id" ref="220000"/>
+    </record>
+    <record id='221001' model='account.account.template'>
+        <field name='name'>PRÉSTAMOS BANCARIOS A LARGO PLAZO</field>
+        <field name='code'>221001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="221000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='221002' model='account.account.template'>
+        <field name='name'>OTROS PASIVOS FINANCIEROS A LARGO PLAZO</field>
+        <field name='code'>221002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="221000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='222000' model='account.group'>
+        <field name='name'>CUENTAS POR PAGAR A LARGO PLAZO</field>
+        <field name='code_prefix'>222000</field>
+        <field name="parent_id" ref="220000"/>
+    </record>
+
+    <record id='222001' model='account.account.template'>
+        <field name='name'>DOCUMENTOS POR PAGAR A LARGO PLAZO</field>
+        <field name='code'>222001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="222000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='222002' model='account.account.template'>
+        <field name='name'>CUENTAS POR PAGAR A EMPRESAS RELACIONADAS A LARGO PLAZO</field>
+        <field name='code'>222002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="222000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='223000' model='account.group'>
+        <field name='name'>PREVISIÓN PARA BENEFICIOS SOCIALES (INDEMNIZACIONES AL PERSONAL)</field>
+        <field name='code_prefix'>223000</field>
+        <field name="parent_id" ref="220000"/>
+    </record>
+
+    <record id='224000' model='account.group'>
+        <field name='name'>OTROS PASIVOS NO CORRIENTES</field>
+        <field name='code_prefix'>224000</field>
+        <field name="parent_id" ref="220000"/>
+    </record>
+    <!--Capital y patrimonio -->
+    <record id='300000' model='account.group'>
+        <field name='name'>PATRIMONIO</field>
+        <field name='code_prefix'>300000</field>
+    </record>
+    <record id='310000' model='account.group'>
+        <field name='name'>CAPITAL</field>
+        <field name='code_prefix'>310000</field>
+        <field name="parent_id" ref="300000"/>
+    </record>
+
+    <record id='310001' model='account.account.template'>
+        <field name='name'>CAPITAL SOCIAL PAGADO</field>
+        <field name='code'>310001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="310000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='310002' model='account.account.template'>
+        <field name='name'>APORTES POR CAPITALIZAR</field>
+        <field name='code'>310002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="310000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='310003' model='account.account.template'>
+        <field name='name'>AJUSTE DE CAPITAL</field>
+        <field name='code'>310003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="310000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='320000' model='account.group'>
+        <field name='name'>RESERVAS</field>
+        <field name='code_prefix'>320000</field>
+        <field name="parent_id" ref="300000"/>
+    </record>
+
+    <record id='320001' model='account.account.template'>
+        <field name='name'>RESERVA LEGAL</field>
+        <field name='code'>320001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="320000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='320002' model='account.account.template'>
+        <field name='name'>OTRAS RESERVAS</field>
+        <field name='code'>320002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='320003' model='account.account.template'>
+        <field name='name'>AJUSTE DE RESERVAS PATRIMONIALES</field>
+        <field name='code'>320003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="320000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='330000' model='account.group'>
+        <field name='name'>RESULTADOS ACUMULADOS</field>
+        <field name='code_prefix'>330000</field>
+        <field name="parent_id" ref="300000"/>
+    </record>
+
+    <record id='330001' model='account.account.template'>
+        <field name='name'>RESULTADOS ACUMULADOS</field>
+        <field name='code'>330001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="330000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='330002' model='account.account.template'>
+        <field name='name'>RESULTADO DE LA GESTIÓN</field>
+        <field name='code'>330002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="330000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <!-- Evolucion del patrimonio -->
+    <record id='311000' model='account.group'>
+        <field name='name'>CUENTAS DE CAPITAL</field>
+        <field name='code_prefix'>311000</field>
+        <field name="parent_id" ref="310000"/>
+    </record>
+
+    <record id='311001' model='account.account.template'>
+        <field name='name'>CAPITAL SOCIAL</field>
+        <field name='code'>311001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="311000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='311002' model='account.account.template'>
+        <field name='name'>APORTES POR CAPITALIZAR</field>
+        <field name='code'>311002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="311000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='311003' model='account.account.template'>
+        <field name='name'>AJUSTE DE CAPITAL</field>
+        <field name='code'>311003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="311000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='312000' model='account.group'>
+        <field name='name'>AJUSTE DE CAPITAL</field>
+        <field name='code_prefix'>312000</field>
+        <field name="parent_id" ref="310000"/>
+    </record>
+
+    <record id='312001' model='account.account.template'>
+        <field name='name'>AJUSTE DE CAPITAL</field>
+        <field name='code'>312001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="312000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='321000' model='account.group'>
+        <field name='name'>CUENTAS RESERVAS</field>
+        <field name='code_prefix'>321000</field>
+        <field name="parent_id" ref="320000"/>
+    </record>
+    <record id='321001' model='account.account.template'>
+        <field name='name'>RESERVA LEGAL</field>
+        <field name='code'>321001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="321000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='321002' model='account.account.template'>
+        <field name='name'>OTRAS RESERVAS</field>
+        <field name='code'>321002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="321000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='322000' model='account.group'>
+        <field name='name'>AJUSTE DE RESERVAS PATRIMONIALES</field>
+        <field name='code_prefix'>322000</field>
+        <field name="parent_id" ref="320000"/>
+    </record>
+    <record id='322001' model='account.account.template'>
+        <field name='name'>AJUSTE DE RESERVAS PATRIMONIALES</field>
+        <field name='code'>322001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="322000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='331000' model='account.group'>
+        <field name='name'>CUENTAS DE RESULTADO</field>
+        <field name='code_prefix'>331000</field>
+        <field name="parent_id" ref="330000"/>
+    </record>
+    <record id='331001' model='account.account.template'>
+        <field name='name'>RESULTADOS ACUMULADOS</field>
+        <field name='code'>331001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="331000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='331002' model='account.account.template'>
+        <field name='name'>RESULTADOS DE LA GESTIÓN</field>
+        <field name='code'>331002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="331000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='332000' model='account.group'>
+        <field name='name'>ACTUALIZACIÓN VALOR CUENTAS DE RESULTADO</field>
+        <field name='code_prefix'>332000</field>
+        <field name="parent_id" ref="330000"/>
+    </record>
+    <record id='332001' model='account.account.template'>
+        <field name='name'>RESULTADOS ACUMULADOS</field>
+        <field name='code'>332001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_current_liabilities' name='user_type_id'/>
+        <field name="group_id" ref="332000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <!-- Estado de resultados -->
+    <record id='400000' model='account.group'>
+        <field name='name'>PÉRDIDA DEL EJERCICIO</field>
+        <field name='code_prefix'>400000</field>
+    </record>
+
+    <record id='410000' model='account.group'>
+        <field name='name'>INGRESOS NETOS</field>
+        <field name='code_prefix'>410000</field>
+        <field name="parent_id" ref="400000"/>
+    </record>
+    <record id='410001' model='account.account.template'>
+        <field name='name'>VENTAS</field>
+        <field name='code'>410001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_revenue' name='user_type_id'/>
+        <field name="group_id" ref="410000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='410002' model='account.account.template'>
+        <field name='name'>DEVOLUCIONES, REBAJAS Y DESCUENTOS DE BIENES Y/O SERVICIOS</field>
+        <field name='code'>410002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_other_income' name='user_type_id'/>
+        <field name="group_id" ref="410000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='500000' model='account.group'>
+        <field name='name'>UTILIDAD DEL EJERCICIO</field>
+        <field name='code_prefix'>500000</field>
+    </record>
+
+    <record id='510000' model='account.group'>
+        <field name='name'>COSTO DE VENTAS</field>
+        <field name='code_prefix'>510000</field>
+        <field name="parent_id" ref="500000"/>
+    </record>
+    <record id='510001' model='account.account.template'>
+        <field name='name'>COSTO DE PRODUCTOS</field>
+        <field name='code'>510001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="510000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='510002' model='account.account.template'>
+        <field name='name'>FLETES Y TRANSPORTES DE PRODUCTOS</field>
+        <field name='code'>510002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="510000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='510003' model='account.account.template'>
+        <field name='name'>DEVOLUCIÓN EN COMPRAS</field>
+        <field name='code'>510003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="510000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='510004' model='account.account.template'>
+        <field name='name'>DESCUENTOS SOBRE COMPRAS</field>
+        <field name='code'>510004</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="510000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='510005' model='account.account.template'>
+        <field name='name'>COSTO DE PRODUCTOS DAÑADOS</field>
+        <field name='code'>510005</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="510000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='5810000' model='account.group'>
+        <field name='name'>UTILIDAD / (PÉRDIDA) BRUTA</field>
+        <field name='code_prefix'>581000</field>
+        <field name="parent_id" ref="500000"/>
+    </record>
+    <record id='520000' model='account.group'>
+        <field name='name'>GASTOS DE COMERCIALIZACIÓN</field>
+        <field name='code_prefix'>520000</field>
+        <field name="parent_id" ref="500000"/>
+    </record>
+    <record id='520001' model='account.account.template'>
+        <field name='name'>SUELDOS Y SALARIOS</field>
+        <field name='code'>520001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="520000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='520002' model='account.account.template'>
+        <field name='name'>BENEFICIOS SOCIALES</field>
+        <field name='code'>520002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="520000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='520003' model='account.account.template'>
+        <field name='name'>COMISIONES SOBRE VENTAS</field>
+        <field name='code'>520003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="520000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='520004' model='account.account.template'>
+        <field name='name'>VÍATICOS</field>
+        <field name='code'>520004</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="520000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='520005' model='account.account.template'>
+        <field name='name'>PASAJES</field>
+        <field name='code'>520005</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="520000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='520006' model='account.account.template'>
+        <field name='name'>PUBLICIDAD</field>
+        <field name='code'>520006</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="520000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='520007' model='account.account.template'>
+        <field name='name'>DEPRECIACIÓN DE BIENES DE USO</field>
+        <field name='code'>520007</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="520000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='520008' model='account.account.template'>
+        <field name='name'>PÉRDIDA EN CUENTAS INCOBRABLES</field>
+        <field name='code'>520008</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="520000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='520009' model='account.account.template'>
+        <field name='name'>OTROS GASTOS DE COMERCIALIZACIÓN</field>
+        <field name='code'>520009</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="520000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id="524000" model="account.account.template">
+        <field name="code">524000</field>
+        <field name="name">LA PÉRDIDA CAMBIARIA</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses"/>
+        <field name="group_id" ref="520000"/>
+        <field name="chart_template_id" ref="bo_sin_chart_template"/>
+    </record>
+    <record id='530000' model='account.group'>
+        <field name='name'>GASTOS GENERALES DE ADMINISTRACIÓN</field>
+        <field name='code_prefix'>530000</field>
+        <field name="parent_id" ref="500000"/>
+    </record>
+    <record id='530001' model='account.account.template'>
+        <field name='name'>SUELDOS Y SALARIOS ADM</field>
+        <field name='code'>530001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530002' model='account.account.template'>
+        <field name='name'>BENEFICIOS SOCIALES ADM</field>
+        <field name='code'>530002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530003' model='account.account.template'>
+        <field name='name'>PROVISIÓN AGUINALDOS</field>
+        <field name='code'>530003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530004' model='account.account.template'>
+        <field name='name'>PREVISIÓN INDEMNIZACIONES</field>
+        <field name='code'>530004</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530005' model='account.account.template'>
+        <field name='name'>VÍATICOS ADM</field>
+        <field name='code'>530005</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530006' model='account.account.template'>
+        <field name='name'>PASAJES ADM</field>
+        <field name='code'>530006</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530007' model='account.account.template'>
+        <field name='name'>SERVICIOS BÁSICOS</field>
+        <field name='code'>530007</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530008' model='account.account.template'>
+        <field name='name'>MATERIALES Y SUMINISTROS</field>
+        <field name='code'>530008</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530009' model='account.account.template'>
+        <field name='name'>FLETES Y TRANSPORTE</field>
+        <field name='code'>530009</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530010' model='account.account.template'>
+        <field name='name'>MANTENIMIENTO Y REPARACIÓN</field>
+        <field name='code'>530010</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530011' model='account.account.template'>
+        <field name='name'>DEPRECIACIÓN DE BIENES DE USO ADM</field>
+        <field name='code'>530011</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530012' model='account.account.template'>
+        <field name='name'>ALQUILERES</field>
+        <field name='code'>530012</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530013' model='account.account.template'>
+        <field name='name'>SEGUROS</field>
+        <field name='code'>530013</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530014' model='account.account.template'>
+        <field name='name'>SERVICIO DE SEGURIDAD</field>
+        <field name='code'>530014</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530015' model='account.account.template'>
+        <field name='name'>GASTOS GENERALES</field>
+        <field name='code'>530015</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='530016' model='account.account.template'>
+        <field name='name'>OTROS GASTOS DE ADMINISTRACIÓN</field>
+        <field name='code'>530016</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="530000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='540000' model='account.group'>
+        <field name='name'>GASTOS FINANCIEROS</field>
+        <field name='code_prefix'>540000</field>
+        <field name="parent_id" ref="500000"/>
+    </record>
+    <record id='540001' model='account.account.template'>
+        <field name='name'>INTERESES SOBRE PRÉSTAMOS BANCARIOS</field>
+        <field name='code'>540001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="540000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='540002' model='account.account.template'>
+        <field name='name'>INTERESES SOBRE OTRAS OBLIGACIONES FINANCIERAS</field>
+        <field name='code'>540002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="540000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='540003' model='account.account.template'>
+        <field name='name'>OTROS INTERESES</field>
+        <field name='code'>540003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="540000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='540004' model='account.account.template'>
+        <field name='name'>COMISIONES BANCARIAS</field>
+        <field name='code'>540004</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="540000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='540005' model='account.account.template'>
+        <field name='name'>OTROS GASTOS FINANCIEROS</field>
+        <field name='code'>540005</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="540000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='420000' model='account.group'>
+        <field name='name'>INGRESOS FINANCIEROS</field>
+        <field name='code_prefix'>420000</field>
+        <field name="parent_id" ref="400000"/>
+    </record>
+
+    <record id='420001' model='account.account.template'>
+        <field name='name'>INTERESES SOBRE DEPÓSITOS BANCARIOS</field>
+        <field name='code'>420001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_other_income' name='user_type_id'/>
+        <field name="group_id" ref="420000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='420002' model='account.account.template'>
+        <field name='name'>INTERESES DE INVERSIONES TEMPORALES</field>
+        <field name='code'>420002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_other_income' name='user_type_id'/>
+        <field name="group_id" ref="420000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='420003' model='account.account.template'>
+        <field name='name'>OTROS INGRESOS FINANCIEROS</field>
+        <field name='code'>420003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_other_income' name='user_type_id'/>
+        <field name="group_id" ref="420000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id="426000" model="account.account.template">
+        <field name="code">426000</field>
+        <field name="name">LA GANANCIA CAMBIARIA</field>
+        <field name="user_type_id" ref="account.data_account_type_other_income"/>
+        <field name="group_id" ref="420000"/>
+        <field name="chart_template_id" ref="bo_sin_chart_template"/>
+    </record>
+
+    <record id='550000' model='account.group'>
+        <field name='name'>OTROS GASTOS DE OPERACIÓN</field>
+        <field name='code_prefix'>550000</field>
+        <field name="parent_id" ref="500000"/>
+    </record>
+    <record id='582000' model='account.group'>
+        <field name='name'>UTILIDAD / (PÉRDIDA) OPERACIÓN</field>
+        <field name='code_prefix'>582000</field>
+        <field name="parent_id" ref="500000"/>
+    </record>
+
+    <record id='430000' model='account.group'>
+        <field name='name'>OTROS INGRESOS</field>
+        <field name='code_prefix'>430000</field>
+        <field name="parent_id" ref="400000"/>
+    </record>
+
+    <record id='430001' model='account.account.template'>
+        <field name='name'>AJUSTE POR INFLACIÓN Y TENENCIA DE BIENES</field>
+        <field name='code'>430001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_other_income' name='user_type_id'/>
+        <field name="group_id" ref="430000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='430002' model='account.account.template'>
+        <field name='name'>INGRESOS POR VENTA DE VALORES</field>
+        <field name='code'>430002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_other_income' name='user_type_id'/>
+        <field name="group_id" ref="430000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='430003' model='account.account.template'>
+        <field name='name'>OTROS INGRESOS</field>
+        <field name='code'>430003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_other_income' name='user_type_id'/>
+        <field name="group_id" ref="430000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='560000' model='account.group'>
+        <field name='name'>OTROS GASTOS NO OPERATIVOS</field>
+        <field name='code_prefix'>560000</field>
+        <field name="parent_id" ref="500000"/>
+    </record>
+    <record id='560001' model='account.account.template'>
+        <field name='name'>AJUSTE POR INFLACIÓN Y TENENCIA DE BIENES</field>
+        <field name='code'>560001</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="560000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='560002' model='account.account.template'>
+        <field name='name'>DIFERENCIA DE CAMBIO</field>
+        <field name='code'>560002</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="560000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+    <record id='560003' model='account.account.template'>
+        <field name='name'>OTROS GASTOS</field>
+        <field name='code'>560003</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="560000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='569000' model='account.account.template'>
+        <field name='name'>IMPUESTO A LAS TRANSACCIONES</field>
+        <field name='code'>569000</field>
+        <field name='reconcile' eval='False'/>
+        <field ref='account.data_account_type_expenses' name='user_type_id'/>
+        <field name="group_id" ref="560000"/>
+        <field name='chart_template_id' ref='bo_sin_chart_template'/>
+    </record>
+
+    <record id='583000' model='account.group'>
+        <field name='name'>UTILIDAD / (PÉRDIDA) ANTES DE IMPUESTOS</field>
+        <field name='code_prefix'>583000</field>
+        <field name="parent_id" ref="500000"/>
+    </record>
+
+    <record id='570000' model='account.group'>
+        <field name='name'>IMPUESTO SOBRE LAS UTILIDADES DE LAS EMPRESAS</field>
+        <field name='code_prefix'>570000</field>
+        <field name="parent_id" ref="500000"/>
+    </record>
+
+    <record id='584000' model='account.group'>
+        <field name='name'>UTILIDAD / (PÉRDIDA) DEL EJERCICIO</field>
+        <field name='code_prefix'>584000</field>
+        <field name="parent_id" ref="500000"/>
+    </record>
+
+
+    <record id="bo_sin_chart_template" model="account.chart.template">
+        <field name="property_account_receivable_id" ref="112001"/>
+        <field name="property_account_payable_id" ref="212001"/>
+        <field name="property_account_expense_categ_id" ref="530015"/>
+        <field name="property_account_income_categ_id" ref="410001"/>
+        <field name="income_currency_exchange_account_id" ref="426000"/>
+        <field name="expense_currency_exchange_account_id" ref="524000"/>
+    </record>
+
+
+</odoo>

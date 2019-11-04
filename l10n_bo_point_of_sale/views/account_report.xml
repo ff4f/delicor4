@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <record id="paperformat_euro_pos_bol" model="report.paperformat">
+            <field name="name">Formato POS</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">220</field>
+            <field name="page_width">88</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">2</field>
+            <field name="margin_bottom">1</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="action_report_invoice_print_pos_bol"
+                model="account.invoice"
+                string="Factura Pdv"
+                report_type="qweb-pdf"
+                name="l10n_bo_point_of_sale.report_invoice_print_pos_bol"
+                file="l10n_bo_point_of_sale.report_invoice_print_pos_bol"
+                attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+                paperformat="l10n_bo_point_of_sale.paperformat_euro_pos_bol"
+        />
+
+        <record id="point_of_sale.pos_invoice_report" model="ir.actions.report">
+            <field name="name">Invoice</field>
+            <field name="model">pos.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_bo_point_of_sale.report_invoice_bol</field>
+            <field name="print_report_name">'Invoice - %s' % (object.name)</field>
+            <field name="paperformat_id" ref="l10n_bo_point_of_sale.paperformat_euro_pos_bol"/>
+        </record>
+
+        <template id="report_invoice_bol" inherit_id="l10n_bo_point_of_sale.report_invoice_print_pos_bol" primary="True"/>
+
+    </data>
+</odoo>

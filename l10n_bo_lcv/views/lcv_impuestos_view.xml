@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_impuestos_nacionales" name="Impuestos Nacionales" parent="account.menu_finance_reports"
+                  sequence="5"/>
+        <record id="action_l10n_bo_lcv_lcv_report_xls_xlsx" model="ir.actions.report">
+            <field name="name">LCV XLSX</field>
+            <field name="model">lcv.export.wizard</field>
+            <field name="type">ir.actions.report</field>
+            <field name="report_name">l10n_bo_lcv.lcv_report_xls.xlsx</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_file">lcv_xls</field>
+        </record>
+    </data>
+</odoo>
