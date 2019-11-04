@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice_document_pos_bol">
+            <t t-call="web.basic_layout">
+                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+                <div class="page">
+                    <div class="text-center">
+                        <div class="text-center">
+                            <h5>
+                                <strong>
+                                    <span t-field="o.company_id.razon_social"/>
+                                </strong>
+                            </h5>
+                        </div>
+                        <t t-if="o.warehouse_id.is_begin">
+                            <div class="text-center" style="margin-left:-30px;">
+                                <ul style="list-style: none; line-height:100%; font-size:12px;">
+                                    <li>
+                                        <strong>CASA MATRIZ</strong>
+                                    </li>
+                                    <li>
+                                        <span t-field="o.company_id.partner_id.street"/>
+                                    </li>
+                                    <li>
+                                        Teléfono:
+                                        <span t-field="o.company_id.partner_id.phone"/>
+                                    </li>
+                                    <li>
+                                        <span t-field="o.company_id.partner_id.city"/>-
+                                        <span t-field="o.company_id.partner_id.country_id.name"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </t>
+                        <t t-if="not o.warehouse_id.is_begin">
+                            <div class="text-center" style="margin-left:-30px;">
+                                <ul style="list-style: none; line-height:100%; font-size:12px;">
+                                    <li>
+                                        <strong>
+                                            <span t-field="o.warehouse_id.name"/>
+                                        </strong>
+                                    </li>
+                                    <li>
+                                        <span t-field="o.warehouse_id.partner_id.street"/>
+                                    </li>
+                                    <li>
+                                        Teléfono:
+                                        <span t-field="o.warehouse_id.partner_id.phone"/>
+                                    </li>
+                                    <li>
+                                        <span t-field="o.warehouse_id.partner_id.city"/>-
+                                        <span t-field="o.warehouse_id.partner_id.country_id.name"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </t>
+                        <div class="text-center">
+                            <h2>
+                                <strong>FACTURA</strong>
+                            </h2>
+                        </div>
+                        <div style="border-bottom: 1px solid black;"></div>
+                        <div class="text-left"
+                             style="margin-left:20px; font-size: 15px; margin-top:10px; margin-bottom:10px">
+                            <table style="width:100%;">
+                                <tbody>
+                                    <tr style="line-height: 16px;">
+                                        <td scope="row">
+                                            <strong>NIT:</strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.company_id.nit_ci"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="line-height: 16px;">
+                                        <td scope="row">
+                                            <strong>N° de Factura:</strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.n_factura"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="line-height: 16px;">
+                                        <td scope="row">
+                                            <strong>N° Autorización:</strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.n_autorizacion"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="border-bottom: 1px solid black;"></div>
+                        <div class="text-center" style="font-size: 14px; line-height: 14px;">
+                            <span t-field="o.dosificacion.actividad.name"/>
+                        </div>
+                        <div style="border-bottom: 1px solid black;"></div>
+                    </div>
+
+                    <div class="text-left" style="margin-left:18px; font-size: 15px;">
+                        <div class="row">
+                            <div class="text-left">
+                                <strong>Fecha:</strong>
+                                <span t-esc="o.date_invoice.strftime('%m/%d/%Y')"/>
+                                <br/>
+                                <strong>Hora:</strong>
+                                <span t-esc="context_timestamp(o.date_time).strftime('%H:%M')"/>
+                                <br/>
+                                <strong>Señor(es):</strong>
+                                <span t-field="o.razon_social"/>
+                                <br/>
+                                <strong>NIT/CI:</strong>
+                                <span t-field="o.nit_ci"/>
+                            </div>
+                        </div>
+                    </div>
+                    <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
+                    <t t-set="descuento" t-value="0"/>
+                    <table class="table table-condensed" style="font-size: 13px; width: 390px; margin-left:-10px;">
+                        <tbody class="invoice_tbody">
+                            <tr style="line-height: 14px;">
+                                <td class="text-left" style="width:10px;">CANT.</td>
+                                <td class="text-left" style="width:190px;">DETALLE</td>
+                                <td class="text-right" style="width:10px;">P. UNIT.</td>
+                                <td class="text-right" style="width:10px;">SUB TOTAL</td>
+                            </tr>
+                            <tr t-foreach="o.invoice_line_ids" t-as="l" style="line-height: 13px;">
+                                <td class="text-left">
+                                    <t t-esc="'{0:,.2f}'.format(l.quantity)"/>
+                                    <span t-field="l.uom_id" groups="product.group_uom"/>
+                                </td>
+                                <td>
+                                    <t t-set="descuento" t-value="descuento + l.discount_amt"/>
+                                    <span t-field="l.product_id.name"/><br />
+                                    <t t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                        <t t-set="t_desc" t-value="l.discount"/>
+                                        <span style="font-size: 11px;">Con un/una <t t-esc="'{0:,.2f}'.format(t_desc)"/>% Descuento</span>
+                                    </t>
+                                </td>
+                                <td class="text-right">
+                                    <t t-esc="'{0:,.2f}'.format(l.price_unit)"/>
+                                </td>
+                                <td class="text-right">
+                                    <t t-set="t_total" t-value="l.quantity*l.price_unit"/>
+                                    <t t-esc="'{0:,.2f}'.format(t_total)"/>
+                                </td>
+                            </tr>
+                            <tr style="line-height: 14px;">
+                                <td class="text-left" colspan="2">
+                                    <strong>Subtotal Bs.:</strong><br />
+                                    <strong>Descuento Bs.:</strong><br />
+                                    <strong>Total Bs.:</strong><br />
+                                    <strong>Monto Recibido Bs:</strong><br />
+                                    <strong>Cambio Bs:</strong>
+                                </td>
+                                <td class="text-right" colspan="2">
+                                    <strong>
+                                        <t t-esc="'{0:,.2f}'.format(o.amount_open)"/>
+                                    </strong><br />
+                                    <strong>
+                                        <t t-esc="'{0:,.2f}'.format(descuento)"/>
+                                    </strong><br />
+                                    <strong>
+                                        <t t-esc="'{0:,.2f}'.format(o.amount_total)"/>
+                                    </strong><br />
+                                    <strong>
+                                        <t t-esc="'{0:,.2f}'.format(o.amount_total + o.amount_change)"/>
+                                    </strong><br />
+                                    <strong>
+                                        <t t-esc="'{0:,.2f}'.format(o.amount_change)"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr style="line-height: 14px;">
+                                <td>
+                                    <strong>SON:</strong>
+                                </td>
+                                <td class="text-left" colspan="3">
+                                    <span t-esc="o.amount_text"/>
+                                </td>
+                            </tr>
+                            <t t-if="o.amount_imp != o.amount_total">
+                                <tr style="line-height: 14px; font-size:10px;">
+                                    <td colspan="4">
+                                        <strong>Importe base para Crédito Fiscal, Ley N° 317 Bs.</strong>
+                                        <t t-esc="'{0:,.2f}'.format(o.amount_total - o.amount_exe - o.amount_ice_iehd)"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div style="border-bottom: 1px solid black;"></div>
+
+                    <table style="font-size: 14px; width: 390px;">
+                        <tr>
+                            <td class="text-left" style="width:180px;">
+                                <strong>Código de Control:</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.codigo_control"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">
+                                <strong>Fecha Límite de Emisión:</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.date_end"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="margin-left:120px; width:100%;">
+                        <img t-if="o.qr_image" t-att-src="image_data_uri(o.qr_image)" class="float-left" alt="Logo"
+                             style="width: 150px; height: 150px; margin-right: 1px; display:inline"/>
+                    </div>
+
+                    <div class="row text-center"
+                         style="font-size: 15px; line-height: 14px; margin-left:1px; width:100%;">
+                        <strong>"ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAÍS. EL USO ILÍCITO DE ÉSTA SERÁ
+                            SANCIONADO
+                            DE ACUERDO A LEY"
+                        </strong>
+                        <br/>
+                        <span t-esc="o.dosificacion.leyenda.name"/>
+                    </div>
+                    <br/>
+                    <div class="row text-center"
+                         style="font-size: 14px; line-height: 14px; margin-left:1px; width:100%;">
+                        <span t-esc="o.comment"/>
+
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_invoice_pos_bol">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang"
+                       t-value="o.user_id.lang if o.type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                    <t t-call="l10n_bo_point_of_sale.report_invoice_document_pos_bol" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_invoice_print_pos_bol">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang"
+                       t-value="o.user_id.lang if o.type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                    <t t-call="l10n_bo_point_of_sale.report_invoice_document_pos_bol" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

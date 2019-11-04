@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="ClientDetailsEdit">
+        <t t-jquery=".client-name" t-operation="after">
+            <div class='client-details-box clearfix'>
+                <div class='client-details-left'>
+                    <div class='client-detail'>
+                        <span class='label'>NIT/CI</span>
+                        <input class='detail client-name' name='nit_ci' t-att-value='partner.nit_ci' placeholder=''></input>
+                    </div>
+                </div>
+                <div class='client-details-right'>
+                    <div class='client-detail'>
+                        <span class='label'>Razón Social</span>
+                        <input class='detail client-name' name='razon_social' t-att-value='partner.razon_social' placeholder=''></input>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="ClientDetails">
+        <t t-jquery=".client-details-right" t-operation="after">
+            <div class='client-detail'>
+                <span class='label'>NIT/CI</span>
+                <t t-if='partner.nit_ci'>
+                    <span class='detail client-nit_ci'><t t-esc='partner.nit_ci'/></span>
+                </t>
+                <t t-if='!partner.nit_ci'>
+                    <span class='detail client-nit_ci empty'>0</span>
+                </t>
+            </div>
+            <div class='client-detail'>
+                <span class='label'>Razon Social</span>
+                <t t-if='partner.razon_social'>
+                    <span class='detail client-razon_social'><t t-esc='partner.razon_social'/></span>
+                </t>
+                <t t-if='!partner.razon_social'>
+                    <span class='detail client-razon_social empty'>S/N</span>
+                </t>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="ClientListScreenWidget">
+        <t t-jquery="table.client-list tr" t-operation="append">
+            <th id="client-list-nit_ci">NIT/CI</th>
+            <th id="client-list-razon_social">Razón Social</th>
+        </t>
+    </t>
+
+    <t t-extend="ClientLine">
+        <t t-jquery="tr.client-line" t-operation="append">
+            <td>
+                <t t-if='partner.nit_ci'>
+                    <t t-esc='partner.nit_ci'/>
+                </t>
+                <t t-if='!partner.nit_ci'>
+                    0
+                </t>
+            </td>
+            <td>
+                <t t-if='partner.razon_social'>
+                    <t t-esc='partner.razon_social'/>
+                </t>
+                <t t-if='!partner.razon_social'>
+                    S/N
+                </t>
+            </td>
+        </t>
+    </t>
+</templates>
