@@ -23,9 +23,14 @@ odoo.define('l10n_bo_point_of_sale.screens', function (require) {
             var self = this;
             var order = this.pos.get_order();
             var value_bob = order.get_total_with_tax();
-            var sn = order.attributes.client.razon_social;
+            if (!order.attributes.client) {
+                var sn = "s/n";
+            }
+            else {
+                var sn = order.attributes.client.razon_social;
+            }
             if (value_bob > 3000 && ((sn == 'S/N') || (sn == 's/n'))) {
-                alert('No puede validar el pedido con monto mayor a 3,000.00 Bs.');
+                alert('No puede validar el pedido con monto mayor a 3,000.00 Bs.')
             }
             else {
                 var change = order.get_change();
@@ -33,6 +38,19 @@ odoo.define('l10n_bo_point_of_sale.screens', function (require) {
                 self._super();
             }
 
+        },
+        click_invoice: function () {
+            var order = this.pos.get_order();
+            order.set_to_invoice(true);
+
+            this.$('.js_invoice').addClass('highlight');
+        },
+        show: function () {
+
+            this._super();
+            var order = this.pos.get_order();
+            order.set_to_invoice(true);
+            this.$('.js_invoice').addClass('highlight');
         },
 
     });
