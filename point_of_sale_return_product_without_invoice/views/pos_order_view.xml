@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="inherit_view_pos_order_returb_form" model="ir.ui.view">
+            <field name="name">inherit_view_pos_order_returb_form</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="model">pos.order</field>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="order_return_id"/>
+                </field>
+                <xpath expr="//field[@name='lines']/form/group/field[@name='price_unit']" position="before">
+                    <field name="order_return_id"/>
+                </xpath>
+                <button name="action_view_invoice" position="after">
+                    <button name="action_view_return" string="Returns" type="object" class="oe_stat_button" icon="fa-pencil-square-o"/>
+                </button>
+            </field>
+        </record>
+
+        <record id="inherit_view_report_cash_box_form" model="ir.ui.view">
+            <field name="name">inherit_view_report_cash_box_form</field>
+            <field name="inherit_id" ref="account.cash_box_in_form"/>
+            <field name="model">cash.box.in</field>
+            <field name="arch" type="xml">
+                <field name="amount" position="after">
+                    <field name="receive_id"/>
+                    <field name="sender_id"/>
+                    <field name="auth_id"/>
+                    <field name="number" readonly="1"/>
+                </field>
+                <button name="run" position="before">
+                    <button name="print_in_payment" string="Print" class="btn-primary" type="object" icon="fa-print"/>
+                </button>
+            </field>
+        </record>
+        <record id="inherit_view_report_cash_box_out_form" model="ir.ui.view">
+            <field name="name">inherit_view_report_cash_box_form</field>
+            <field name="inherit_id" ref="account.cash_box_out_form"/>
+            <field name="model">cash.box.out</field>
+            <field name="arch" type="xml">
+                <field name="amount" position="after">
+                    <field name="receive_id"/>
+                    <field name="sender_id"/>
+                    <field name="auth_id"/>
+                    <field name="number" readonly="1"/>
+                </field>
+                <button name="run" position="before">
+                    <button name="print_out_payment" string="Print" class="btn-primary" type="object" icon="fa-print"/>
+                </button>
+            </field>
+        </record>
+    </data>
+</odoo>

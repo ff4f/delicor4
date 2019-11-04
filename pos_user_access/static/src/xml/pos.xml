@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="NumpadWidget">
+        <t t-jquery=".numpad" t-operation='replace'>
+            <div class="numpad custome">
+                <t t-if="! widget.pos.get_cashier().show_numpad">
+                    <button class="input-button number-char" disabled="disabled" data-number='1'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='2'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='3'></button>
+                </t>
+                <t t-if=" widget.pos.get_cashier().show_numpad">
+                    <button class="input-button number-char" data-number='1'>1</button>
+                    <button class="input-button number-char" data-number='2'>2</button>
+                    <button class="input-button number-char" data-number='3'>3</button>
+                </t>     
+                <t t-if="! widget.pos.get_cashier().wv_qty">
+                    <button class="mode-button" disabled="disabled" data-mode='quantity'></button>
+                </t>
+                <t t-if="widget.pos.get_cashier().wv_qty">
+                    <button class="mode-button" data-mode='quantity'>Qty</button>
+                </t>
+                <br />
+                <t t-if="! widget.pos.get_cashier().show_numpad">
+                    <button class="input-button number-char" disabled="disabled" data-number='4'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='5'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='6'></button>
+                </t>
+                <t t-if="widget.pos.get_cashier().show_numpad">
+                    <button class="input-button number-char" data-number='4'>4</button>
+                    <button class="input-button number-char" data-number='5'>5</button>
+                    <button class="input-button number-char" data-number='6'>6</button>
+                </t>
+                <t t-if="! widget.pos.get_cashier().wv_discount">
+                    <button class="mode-button" disabled="disabled" data-mode='discount'></button>
+                </t>
+                <t t-if="widget.pos.get_cashier().wv_discount">
+                    <button class="mode-button" data-mode='discount'>Disc</button>
+                </t>
+                <br />
+                <t t-if="! widget.pos.get_cashier().show_numpad">
+                    <button class="input-button number-char" disabled="disabled" data-number='7'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='8'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='9'></button>
+                </t>
+                <t t-if="widget.pos.get_cashier().show_numpad">
+                    <button class="input-button number-char" data-number='7'>7</button>
+                    <button class="input-button number-char" data-number='8'>8</button>
+                    <button class="input-button number-char" data-number='9'>9</button>
+                </t>
+                <t t-if="! widget.pos.get_cashier().wv_price">
+                    <button class="mode-button" disabled="disabled" data-mode='price'></button>
+                </t>
+                <t t-if="widget.pos.get_cashier().wv_price">
+                    <button class="mode-button" data-mode='price'>Price</button>
+                </t>
+                <br />
+                <t t-if="! widget.pos.get_cashier().wv_plusminus">
+                    <button class="input-button numpad-minus" disabled="disabled"></button>
+                </t>
+                <t t-if="widget.pos.get_cashier().wv_plusminus">
+                    <button class="input-button numpad-minus">+/-</button>
+                </t>
+                <t t-if="! widget.pos.get_cashier().show_numpad">
+                    <button class="input-button number-char" disabled="disabled" data-number='0'></button>
+                    <button class="input-button number-char" disabled="disabled" data-number='.'></button>
+                </t>
+                <t t-if="widget.pos.get_cashier().show_numpad">
+                    <button class="input-button number-char" data-number='0'>0</button>
+                    <button class="input-button number-char" data-number='.'>.</button>
+                </t>
+                <t t-if="! widget.pos.get_cashier().remove_orderline">
+                    <button class="input-button numpad-backspace" disabled="disabled">
+                        <!-- <img style="pointer-events: none;" src="/point_of_sale/static/src/img/backspace.png" width="24" height="21" /> -->
+                    </button>
+                </t>
+                <t t-if="widget.pos.get_cashier().remove_orderline">
+                    <button class="input-button numpad-backspace">
+                        <img style="pointer-events: none;" src="/point_of_sale/static/src/img/backspace.png" width="24" height="21" />
+                    </button>
+                </t>
+            </div>
+        </t>
+    </t>
+    <t t-extend="ActionpadWidget"> 
+        <t t-jquery='.actionpad' t-operation='replace'>
+            <div class="actionpad">
+                <t t-if="! widget.pos.get_cashier().wv_customer">
+                    <button t-attf-class='button set-customer' disabled="disabled" >
+                    </button>
+                </t>
+                <t t-if="widget.pos.get_cashier().wv_customer">
+                    <button t-attf-class='button set-customer #{ ( widget.pos.get_client() and widget.pos.get_client().name.length > 10) ? "decentered" : "" }' >
+                        <i class='fa fa-user' /> 
+                        <t t-if="widget.pos.get_client()">
+                            <t t-esc="widget.pos.get_client().name" />
+                        </t>
+                        <t t-if="!widget.pos.get_client()">
+                            Customer
+                        </t>
+                    </button>
+                </t>
+                <t t-if="! widget.pos.get_cashier().wv_payment">
+                    <button class='button pay' disabled="disabled">
+                        
+                    </button>
+                </t>
+                <t t-if="widget.pos.get_cashier().wv_payment">
+                    <button class='button pay'>
+                        <div class='pay-circle'>
+                            <i class='fa fa-chevron-right' /> 
+                        </div>
+                        Payment
+                    </button>
+                </t>
+            </div>
+        </t>
+    </t>		
+</templates>
