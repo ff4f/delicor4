@@ -34,6 +34,7 @@ class PosOrder(models.Model):
 
     def _action_create_invoice_line(self, line=False, invoice_id=False):
         invoice_line_id = super(PosOrder, self)._action_create_invoice_line(line=line,invoice_id=invoice_id)
-        monto_desc = ((line.discount/100)*line.price_unit)*line.qty
-        invoice_line_id.write({'discount_amt': monto_desc})
+        if invoice_line_id:
+            monto_desc = ((line.discount/100)*line.price_unit)*line.qty
+            invoice_line_id.write({'discount_amt': monto_desc})
         return invoice_line_id
