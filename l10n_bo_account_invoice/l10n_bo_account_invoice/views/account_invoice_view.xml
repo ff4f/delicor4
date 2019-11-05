@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="invoice_form_l10n_bo">
+            <field name="name">invoice.form.l10n.bo</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree//field[@name='discount']" position="before">
+                    <field name="amount_ice_iehd"/>
+                    <field name="amount_exe"/>
+                </xpath>
+                <field name="payment_term_id" position="after">
+                    <field name="warehouse_id" required="1" domain="[('company_id', '=', company_id)]"/>
+                    <field name="date_time" readonly="1"/>
+                    <field name="nit_ci"/>
+                    <field name="razon_social"/>
+                </field>
+                <field name="comment" position="before">
+                    <group>
+                        <group string="Datos SIN">
+                            <field name="type_dosif" invisible="1"/>
+                            <field name="dosificacion" widget="selection"/>
+                            <field name="n_autorizacion"
+                                   attrs="{'readonly': ['|',('type_dosif','!=','manual'),('state','!=','draft')]}"
+                                   force_save="1"/>
+                            <field name="n_factura"
+                                   attrs="{'readonly': ['|',('type_dosif','!=','manual'),('state','!=','draft')]}"
+                                   force_save="1"/>
+                            <field name="codigo_control"
+                                   attrs="{'readonly': ['|',('type_dosif','!=','manual'),('state','!=','draft')]}"
+                                   force_save="1"/>
+                            <field name="date_end"
+                                   attrs="{'readonly': ['|',('type_dosif','!=','manual'),('state','!=','draft')]}"
+                                   force_save="1"/>
+                            <field name="state_sin" force_save="1"/>
+                            <field name="note_credit_debit" force_save="1"/>
+                        </group>
+                        <group>
+                            <div class="oe_title oe_right">
+                                <field name="qr_image" widget="image" options='{"size": [160, 160]}'/>
+                            </div>
+                        </group>
+                    </group>
+                </field>
+                <xpath expr="//group[@class='oe_subtotal_footer oe_right']" position="inside">
+                    <field name="amount_imp" class="oe_subtotal_footer_separator"/>
+                    <field name="amount_iva"/>
+                    <field name="amount_exe"/>
+                    <field name="amount_des"/>
+                    <field name="amount_ice_iehd"/>
+                    <field name="amount_open" class="oe_subtotal_footer_separator"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="invoice_tree_l10n_bo">
+            <field name="name">account.invoice.tree.l10n.bo</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <field name="number" position="after">
+                    <field name="n_factura"/>
+                </field>
+                <field name="amount_tax_signed" position="before">
+                    <field name="amount_imp"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="invoice_form_supplier_l10n_bo">
+            <field name="name">invoice.form.supplier.l10n.bo</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree//field[@name='discount']" position="before">
+                    <field name="amount_exe"/>
+                    <field name="amount_ice_iehd" invisible="1"/>
+                </xpath>
+                <field name="reference" position="after">
+                    <field name="nit_ci"/>
+                    <field name="razon_social"/>
+                </field>
+                <xpath expr="//group[@class='oe_subtotal_footer oe_right']" position="inside">
+                    <field name="amount_imp" class="oe_subtotal_footer_separator"/>
+                    <field name="amount_iva"/>
+                    <field name="amount_exe"/>
+                    <field name="amount_des"/>
+                    <field name="amount_open" class="oe_subtotal_footer_separator"/>
+                </xpath>
+                <field name="comment" position="before">
+                    <group>
+                        <group string="Datos SIN Compras">
+                            <field name="qr_text" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name="n_autorizacion" attrs="{'readonly': [('state','!=','draft')]}" widget="mask"
+                                   data-inputmask="'mask': '9', 'repeat': 10, 'greedy' : false" required="1"/>
+                            <field name="n_dui" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name="n_factura" attrs="{'readonly': [('state','!=','draft')]}" widget="mask"
+                                   data-inputmask="'mask': '9', 'repeat': 10, 'greedy' : false"/>
+                            <field widget="mask" data-inputmask="'mask': '##-##-##-##-##'"
+                                   name="codigo_control" attrs="{'readonly': [('state','!=','draft')]}"
+                                   data-inputmask-placeholder=""/>
+                            <field name="tipo_com" attrs="{'readonly': [('state','!=','draft')]}" required="1"/>
+                            <field name="note_credit_debit" force_save="1"/>
+                            <field name="state_sin" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        </group>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="invoice_supplier_tree_l10n_bo">
+            <field name="name">account.invoice.supplier.tree.l10n.bo</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <field name="number" position="after">
+                    <field name="n_factura"/>
+                </field>
+                <field name="amount_tax_signed" position="after">
+                    <field name="amount_imp"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>
